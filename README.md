@@ -1,7 +1,7 @@
 Play Silhouette Angular4 Seed Project
 =====================================
 
-This is an ongoing work.
+This is an ongoing work and plan to be in a working state by mid august 2017.
 
 The Play Silhouette Angular Seed project shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be used
 to create a SPA with [Angular](https://angular.io/)/[Satellizer](https://github.com/sahat/satellizer) and Play
