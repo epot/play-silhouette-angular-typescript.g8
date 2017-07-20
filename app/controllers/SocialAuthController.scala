@@ -7,34 +7,33 @@ import com.mohiva.play.silhouette.api.exceptions.ProviderException
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.impl.providers._
 import models.services.UserService
-import play.api.cache.CacheApi
-import play.api.i18n.{ I18nSupport, Messages, MessagesApi }
-import play.api.libs.concurrent.Execution.Implicits._
+import play.api.Logger
+import play.api.cache.AsyncCacheApi
+import play.api.i18n.{ I18nSupport, Messages }
 import play.api.libs.json.Json
 import play.api.mvc._
 import utils.auth.DefaultEnv
 
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 import scala.concurrent.duration._
-import scala.language.postfixOps
 
 /**
  * The social auth controller.
  *
- * @param messagesApi The Play messages API.
+ * @param components The ControllerComponents.
  * @param silhouette The Silhouette stack.
  * @param userService The user service implementation.
  * @param authInfoRepository The auth info service implementation.
  * @param socialProviderRegistry The social provider registry.
  */
 class SocialAuthController @Inject() (
-  val messagesApi: MessagesApi,
+  components: ControllerComponents,
   silhouette: Silhouette[DefaultEnv],
   userService: UserService,
   authInfoRepository: AuthInfoRepository,
   socialProviderRegistry: SocialProviderRegistry,
-  cache: CacheApi)
-  extends Controller with I18nSupport with Logger {
+  cache: AsyncCacheApi)(implicit ec: ExecutionContext)
+  extends AbstractController(components) with I18nSupport {
 
   /**
    * Authenticates a user against a social provider.
@@ -51,7 +50,7 @@ class SocialAuthController @Inject() (
             case Right(authInfo) => for {
               profile <- p.retrieveProfile(authInfo)
               user <- userService.save(profile)
-              authInfo <- authInfoRepository.save(profile.loginInfo, authInfo)
+              _ <- authInfoRepository.save(profile.loginInfo, authInfo)
               authenticator <- silhouette.env.authenticatorService.create(profile.loginInfo)
               token <- silhouette.env.authenticatorService.init(authenticator)
             } yield {
@@ -62,7 +61,7 @@ class SocialAuthController @Inject() (
         case _ => Future.failed(new ProviderException(s"Cannot authenticate with unexpected social provider $provider"))
       }).recover {
         case e: ProviderException =>
-          logger.error("Unexpected provider error", e)
+          Logger.error("Unexpected provider error", e)
           Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
       }
     }
@@ -81,7 +80,7 @@ class SocialAuthController @Inject() (
    */
   private def cacheAuthTokenForOauth1(request: Request[AnyContent])(f: Request[AnyContent] => Future[Result]): Future[Result] = {
     request.getQueryString("oauth_token") -> request.getQueryString("oauth_verifier") match {
-      case (Some(token), Some(verifier)) => cache.get[Result](token + "-" + verifier) match {
+      case (Some(token), Some(verifier)) => cache.get[Result](token + "-" + verifier).flatMap {
         case Some(result) => Future.successful(result)
         case None => f(request).map { result =>
           cache.set(token + "-" + verifier, result, 1 minute)

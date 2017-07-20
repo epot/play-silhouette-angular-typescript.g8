@@ -11,18 +11,17 @@ import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
 import forms.SignUpForm
 import models.User
 import models.services.UserService
-import play.api.i18n.{ I18nSupport, Messages, MessagesApi }
-import play.api.libs.concurrent.Execution.Implicits._
+import play.api.i18n.{ I18nSupport, Messages }
 import play.api.libs.json.Json
-import play.api.mvc.{ Action, Controller }
+import play.api.mvc.{ AbstractController, ControllerComponents }
 import utils.auth.DefaultEnv
 
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * The `Sign Up` controller.
  *
- * @param messagesApi The Play messages API.
+ * @param components The ControllerComponents.
  * @param silhouette The Silhouette stack.
  * @param userService The user service implementation.
  * @param authInfoRepository The auth info repository implementation.
@@ -30,13 +29,13 @@ import scala.concurrent.Future
  * @param passwordHasher The password hasher implementation.
  */
 class SignUpController @Inject() (
-  val messagesApi: MessagesApi,
+  components: ControllerComponents,
   silhouette: Silhouette[DefaultEnv],
   userService: UserService,
   authInfoRepository: AuthInfoRepository,
   avatarService: AvatarService,
-  passwordHasher: PasswordHasher)
-  extends Controller with I18nSupport {
+  passwordHasher: PasswordHasher)(implicit ec: ExecutionContext)
+  extends AbstractController(components) with I18nSupport {
 
   /**
    * Handles the submitted JSON data.
@@ -47,7 +46,7 @@ class SignUpController @Inject() (
     request.body.validate[SignUpForm.Data].map { data =>
       val loginInfo = LoginInfo(CredentialsProvider.ID, data.email)
       userService.retrieve(loginInfo).flatMap {
-        case Some(user) =>
+        case Some(_) =>
           Future.successful(BadRequest(Json.obj("message" -> Messages("user.exists"))))
         case None =>
           val authInfo = passwordHasher.hash(data.password)
@@ -63,7 +62,7 @@ class SignUpController @Inject() (
           for {
             avatar <- avatarService.retrieveURL(data.email)
             user <- userService.save(user.copy(avatarURL = avatar))
-            authInfo <- authInfoRepository.add(loginInfo, authInfo)
+            _ <- authInfoRepository.add(loginInfo, authInfo)
             authenticator <- silhouette.env.authenticatorService.create(loginInfo)
             token <- silhouette.env.authenticatorService.init(authenticator)
           } yield {
@@ -73,7 +72,7 @@ class SignUpController @Inject() (
           }
       }
     }.recoverTotal {
-      case error =>
+      case _ =>
         Future.successful(Unauthorized(Json.obj("message" -> Messages("invalid.data"))))
     }
   }

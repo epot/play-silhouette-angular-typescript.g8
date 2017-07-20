@@ -5,7 +5,6 @@ import javax.inject.Inject
 import com.mohiva.play.silhouette.api.Authenticator.Implicits._
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
-import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.api.util.{ Clock, Credentials }
 import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
 import com.mohiva.play.silhouette.impl.providers._
@@ -13,38 +12,33 @@ import forms.SignInForm
 import models.services.UserService
 import net.ceedubs.ficus.Ficus._
 import play.api.Configuration
-import play.api.i18n.{ I18nSupport, Messages, MessagesApi }
-import play.api.libs.concurrent.Execution.Implicits._
+import play.api.i18n.{ I18nSupport, Messages }
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import play.api.mvc.{ Action, Controller }
+import play.api.mvc.{ AbstractController, ControllerComponents }
 import utils.auth.DefaultEnv
 
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 import scala.concurrent.duration._
 
 /**
  * The `Sign In` controller.
  *
- * @param messagesApi The Play messages API.
+ * @param components The ControllerComponents.
  * @param silhouette The Silhouette stack.
  * @param userService The user service implementation.
- * @param authInfoRepository The auth info repository implementation.
  * @param credentialsProvider The credentials provider.
- * @param socialProviderRegistry The social provider registry.
  * @param configuration The Play configuration.
  * @param clock The clock instance.
  */
 class SignInController @Inject() (
-  val messagesApi: MessagesApi,
+  components: ControllerComponents,
   silhouette: Silhouette[DefaultEnv],
   userService: UserService,
-  authInfoRepository: AuthInfoRepository,
   credentialsProvider: CredentialsProvider,
-  socialProviderRegistry: SocialProviderRegistry,
   configuration: Configuration,
-  clock: Clock)
-  extends Controller with I18nSupport {
+  clock: Clock)(implicit ec: ExecutionContext)
+  extends AbstractController(components) with I18nSupport {
 
   /**
    * Converts the JSON into a `SignInForm.Data` object.
@@ -81,11 +75,11 @@ class SignInController @Inject() (
           case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
         }
       }.recover {
-        case e: ProviderException =>
+        case _: ProviderException =>
           Unauthorized(Json.obj("message" -> Messages("invalid.credentials")))
       }
     }.recoverTotal {
-      case error =>
+      case _ =>
         Future.successful(Unauthorized(Json.obj("message" -> Messages("invalid.credentials"))))
     }
   }
