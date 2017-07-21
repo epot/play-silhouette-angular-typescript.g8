@@ -27,7 +27,7 @@ libraryDependencies ++= Seq(
   // frontend
   "org.webjars" %% "webjars-play" % "2.6.1",
   "org.webjars" % "bootstrap" % "3.3.7-1",
-  "org.webjars.npm" % "satellizer" % "0.15.5",
+  "org.webjars.npm" % "ng2-ui-auth" % "7.0.2",
   "org.webjars.npm" % "angular__common" % ngVersion,
   "org.webjars.npm" % "angular__compiler" % ngVersion,
   "org.webjars.npm" % "angular__core" % ngVersion,
@@ -57,6 +57,24 @@ libraryDependencies ++= Seq(
   ehcache,
   filters
 )
+
+dependencyOverrides += "org.webjars.npm" % "minimatch" % "3.0.0"
+
+// use the webjars npm directory (target/web/node_modules ) for resolution of module imports of angular2/core etc
+resolveFromWebjarsNodeModulesDir := true
+
+(projectTestFile in typescript) := Some("tsconfig.test.json")
+
+// use the combined tslint and eslint rules plus ng2 lint rules
+(rulesDirectories in tslint) := Some(List(
+  tslintEslintRulesDir.value,
+  ng2LintRulesDir.value //codelyzer uses 'cssauron' which can't resolve 'through' see https://github.com/chrisdickinson/cssauron/pull/10
+))
+
+// the naming conventions of our test files
+jasmineFilter in jasmine := GlobFilter("*Test.js") | GlobFilter("*Spec.js") | GlobFilter("*.spec.js")
+logLevel in jasmine := Level.Info
+logLevel in tslint := Level.Info
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 

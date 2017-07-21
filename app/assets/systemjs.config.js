@@ -24,6 +24,7 @@
             '@angular/forms': 'npm:angular__forms/bundles/forms.umd.js',
 
             // other libraries
+            'ng2-ui-auth': 'npm:ng2-ui-auth/bundles/ng2-ui-auth.umd.js',
             'rxjs':                      'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
         },

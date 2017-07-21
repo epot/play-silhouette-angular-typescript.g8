@@ -1,31 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Ng2UiAuthModule } from 'ng2-ui-auth';
+import { MyAuthConfig } from './config';
+import { FormHelperService } from './form-helper.service';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HeroService } from './hero.service';
-import { DashboardComponent } from './dashboard.component';
-import { HeroesComponent } from './heroes.component';
-import { HeroDetailComponent } from './hero-detail.component';
-import { HeroSearchComponent } from './hero-search.component';
+import { MainComponent } from './main.component';
+import { SignInComponent } from './sign.in.component';
+import { HeaderComponent } from './header.component';
+import { AuthGuardService } from './auth.gard.service'
+import { JsonHttpGateway } from './json.http.service';
 
 @NgModule({
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    Ng2UiAuthModule.forRoot(MyAuthConfig),
   ],
   declarations: [
     AppComponent,
-    DashboardComponent,
-    HeroSearchComponent,
-    HeroesComponent,
-    HeroDetailComponent,
+    MainComponent,
+    SignInComponent,
+    HeaderComponent,
   ],
-  providers: [HeroService],
+  providers: [
+    AuthGuardService,
+    JsonHttpGateway,
+    FormHelperService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
