@@ -4,6 +4,7 @@ import { ILoginData } from './interfaces';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { FormHelperService } from './form-helper.service';
+import { ErrorHandleService } from './error-handle.service';
 
 /**
  * Created by Ron on 03/10/2016.
@@ -18,21 +19,24 @@ export class SignInComponent implements OnInit {
 
     constructor(private auth: AuthService,
                 private router: Router,
-                private fb: FormBuilder) {
+                private fb: FormBuilder,
+                public fh: FormHelperService,
+                private eh: ErrorHandleService) {
 
     }
 
     ngOnInit() {
         this.form = this.fb.group({
-            username: new FormControl('', [Validators.required, Validators.minLength(3)]),
-            password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+            email: new FormControl('', [Validators.required, Validators.email]),
+            password: new FormControl('', [Validators.required]),
+            rememberMe: new FormControl(true),
         })
     }
 
     login(loginData: ILoginData) {
         this.auth.login(loginData)
             .subscribe({
-                error: (err: any) => console.error(err), // this.eh.handleError(err),
+                error: (err: any) => this.eh.handleError(err),
                 complete: () => this.router.navigateByUrl('main')
             });
     }
@@ -40,7 +44,7 @@ export class SignInComponent implements OnInit {
     authenticate(provider: string) {
         this.auth.authenticate(provider)
             .subscribe({
-                error: (err: any) => console.error(err), // this.eh.handleError(err),
+                error: (err: any) => this.eh.handleError(err),
                 complete: () => this.router.navigateByUrl('main')
             });
     }

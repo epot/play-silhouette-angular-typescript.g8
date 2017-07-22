@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { Ng2UiAuthModule } from 'ng2-ui-auth';
 import { MyAuthConfig } from './config';
 import { FormHelperService } from './form-helper.service';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +14,7 @@ import { SignInComponent } from './sign.in.component';
 import { HeaderComponent } from './header.component';
 import { AuthGuardService } from './auth.gard.service'
 import { JsonHttpGateway } from './json.http.service';
+import { ErrorHandleService } from './error-handle.service';
 
 @NgModule({
   imports: [
@@ -30,9 +32,11 @@ import { JsonHttpGateway } from './json.http.service';
     HeaderComponent,
   ],
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    ErrorHandleService,
+    FormHelperService,
     AuthGuardService,
     JsonHttpGateway,
-    FormHelperService,
   ],
   bootstrap: [AppComponent]
 })

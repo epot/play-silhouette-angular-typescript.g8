@@ -63,6 +63,9 @@ class SocialAuthController @Inject() (
         case e: ProviderException =>
           Logger.error("Unexpected provider error", e)
           Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
+        case e: Exception =>
+          Logger.error("Unexpected error", e)
+          Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
       }
     }
   }

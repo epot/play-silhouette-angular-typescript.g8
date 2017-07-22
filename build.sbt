@@ -42,6 +42,7 @@ libraryDependencies ++= Seq(
   "org.webjars.npm" % "zone.js" % "0.8.4",
   "org.webjars.npm" % "core-js" % "2.4.1",
   "org.webjars.npm" % "symbol-observable" % "1.0.1",
+  "org.webjars.npm" % "ng2-toastr" % "4.1.2",
 
   "org.webjars.npm" % "typescript" % "2.4.1",
 

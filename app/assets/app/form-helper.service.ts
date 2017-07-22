@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormGroup, AbstractControl} from '@angular/forms';
-/**
- * Created by ronze on 10/9/2016.
- */
+
 @Injectable()
 export class FormHelperService {
     hasError(form: FormGroup, ...prop: string[]) {
