@@ -16,7 +16,6 @@ import com.mohiva.play.silhouette.impl.providers.oauth1.services.PlayOAuth1Servi
 import com.mohiva.play.silhouette.impl.providers.oauth2._
 import com.mohiva.play.silhouette.impl.providers.openid.YahooProvider
 import com.mohiva.play.silhouette.impl.providers.openid.services.PlayOpenIDService
-import com.mohiva.play.silhouette.impl.providers.state.{ CsrfStateItemHandler, CsrfStateSettings }
 import com.mohiva.play.silhouette.impl.services._
 import com.mohiva.play.silhouette.impl.util._
 import com.mohiva.play.silhouette.password.BCryptPasswordHasher
@@ -109,16 +108,14 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     googleProvider: GoogleProvider,
     vkProvider: VKProvider,
     twitterProvider: TwitterProvider,
-    xingProvider: XingProvider,
-    yahooProvider: YahooProvider): SocialProviderRegistry = {
+    xingProvider: XingProvider): SocialProviderRegistry = {
 
     SocialProviderRegistry(Seq(
       googleProvider,
       facebookProvider,
       twitterProvider,
       vkProvider,
-      xingProvider,
-      yahooProvider
+      xingProvider
     ))
   }
 
@@ -146,19 +143,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     val config = configuration.underlying.as[JcaCrypterSettings]("silhouette.oauth1TokenSecretProvider.crypter")
 
     new JcaCrypter(config)
-  }
-
-  /**
-   * Provides the signer for the CSRF state item handler.
-   *
-   * @param configuration The Play configuration.
-   * @return The signer for the CSRF state item handler.
-   */
-  @Provides @Named("csrf-state-item-signer")
-  def provideCSRFStateItemSigner(configuration: Configuration): Signer = {
-    val config = configuration.underlying.as[JcaSignerSettings]("silhouette.csrfStateItemHandler.signer")
-
-    new JcaSigner(config)
   }
 
   /**
@@ -271,23 +255,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
   }
 
   /**
-   * Provides the CSRF state item handler.
-   *
-   * @param idGenerator The ID generator implementation.
-   * @param signer The signer implementation.
-   * @param configuration The Play configuration.
-   * @return The CSRF state item implementation.
-   */
-  @Provides
-  def provideCsrfStateItemHandler(
-    idGenerator: IDGenerator,
-    @Named("csrf-state-item-signer") signer: Signer,
-    configuration: Configuration): CsrfStateItemHandler = {
-    val settings = configuration.underlying.as[CsrfStateSettings]("silhouette.csrfStateItemHandler")
-    new CsrfStateItemHandler(settings, idGenerator, signer)
-  }
-
-  /**
    * Provides the social state handler.
    *
    * @param signer The signer implementation.
@@ -295,10 +262,9 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
    */
   @Provides
   def provideSocialStateHandler(
-    @Named("social-state-signer") signer: Signer,
-    csrfStateItemHandler: CsrfStateItemHandler): SocialStateHandler = {
+    @Named("social-state-signer") signer: Signer): SocialStateHandler = {
 
-    new DefaultSocialStateHandler(Set(csrfStateItemHandler), signer)
+    new DefaultSocialStateHandler(Set(), signer)
   }
 
   /**
@@ -412,23 +378,5 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
 
     val settings = configuration.underlying.as[OAuth1Settings]("silhouette.xing")
     new XingProvider(httpLayer, new PlayOAuth1Service(settings), tokenSecretProvider, settings)
-  }
-
-  /**
-   * Provides the Yahoo provider.
-   *
-   * @param httpLayer The HTTP layer implementation.
-   * @param client The OpenID client implementation.
-   * @param configuration The Play configuration.
-   * @return The Yahoo provider.
-   */
-  @Provides
-  def provideYahooProvider(
-    httpLayer: HTTPLayer,
-    client: OpenIdClient,
-    configuration: Configuration): YahooProvider = {
-
-    val settings = configuration.underlying.as[OpenIDSettings]("silhouette.yahoo")
-    new YahooProvider(httpLayer, new PlayOpenIDService(client, settings), settings)
   }
 }
