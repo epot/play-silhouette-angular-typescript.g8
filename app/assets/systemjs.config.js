@@ -19,13 +19,14 @@
             '@angular/compiler': 'npm:angular__compiler/bundles/compiler.umd.js',
             '@angular/platform-browser': 'npm:angular__platform-browser/bundles/platform-browser.umd.js',
             '@angular/platform-browser-dynamic': 'npm:angular__platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+            '@angular/platform-browser/animations': 'npm:angular__platform-browser/bundles/platform-browser-animations.umd.js',   
             '@angular/http': 'npm:angular__http/bundles/http.umd.js',
             '@angular/router': 'npm:angular__router/bundles/router.umd.js',
             '@angular/forms': 'npm:angular__forms/bundles/forms.umd.js',
 
             // other libraries
             'ng2-ui-auth': 'npm:ng2-ui-auth/bundles/ng2-ui-auth.umd.js',
-            'ng2-toastr': 'npm:ng2-toastr/bundles/ng2-toastr.js',
+            'ng2-toastr': 'npm:ng2-toastr',
             'rxjs':                      'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
         },
@@ -40,6 +41,9 @@
                 }
             },
             rxjs: {
+                defaultExtension: 'js'
+            },
+            'ng2-toastr': {
                 defaultExtension: 'js'
             }
         }

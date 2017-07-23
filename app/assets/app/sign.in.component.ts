@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { FormHelperService } from './form-helper.service';
 import { ErrorHandleService } from './error-handle.service';
+import { ViewContainerRef } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 /**
  * Created by Ron on 03/10/2016.
@@ -21,8 +23,8 @@ export class SignInComponent implements OnInit {
                 private router: Router,
                 private fb: FormBuilder,
                 public fh: FormHelperService,
-                private eh: ErrorHandleService) {
-
+                private eh: ErrorHandleService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+         this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {
@@ -36,7 +38,7 @@ export class SignInComponent implements OnInit {
     login(loginData: ILoginData) {
         this.auth.login(loginData)
             .subscribe({
-                error: (err: any) => this.eh.handleError(err),
+                error: (err: any) => this.toastr.error('You are awesome!', 'Success!'),  // this.eh.handleError(err),
                 complete: () => this.router.navigateByUrl('main')
             });
     }
@@ -44,7 +46,7 @@ export class SignInComponent implements OnInit {
     authenticate(provider: string) {
         this.auth.authenticate(provider)
             .subscribe({
-                error: (err: any) => this.eh.handleError(err),
+                error: (err: any) => this.toastr.error('You are awesome!', 'Success!'),  // this.eh.handleError(err),
                 complete: () => this.router.navigateByUrl('main')
             });
     }

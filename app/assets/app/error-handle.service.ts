@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr';
+import { Injectable, ViewContainerRef } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Response } from '@angular/http';
 
 @Injectable()
 export class ErrorHandleService {
-    // constructor(private toastr: ToastsManager) {
-    // }
+    constructor(private toastr: ToastsManager/*, vcr: ViewContainerRef*/) {
+        // this.toastr.setRootViewContainerRef(vcr);
+    }
 
     handleError(err: any) {
-        /*if (typeof err === 'string') {
+        if (typeof err === 'string') {
             this.toastr.error(err)
         } else if (err instanceof Response) {
             const res: Response = err;
@@ -23,6 +24,6 @@ export class ErrorHandleService {
             this.toastr.error(err.toString());
         } else {
             this.toastr.error('An unknown error has occurred');
-        }*/
+        }
     }
 }

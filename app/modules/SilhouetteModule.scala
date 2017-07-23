@@ -99,7 +99,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
    * @param vkProvider The VK provider implementation.
    * @param twitterProvider The Twitter provider implementation.
    * @param xingProvider The Xing provider implementation.
-   * @param yahooProvider The Yahoo provider implementation.
    * @return The Silhouette environment.
    */
   @Provides

@@ -3,6 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MainComponent } from './main.component';
 import { SignInComponent } from './sign.in.component';
+import { AuthGuardService } from './auth.guard.service';
+
+export const CLIENT_ROUTER_PROVIDERS = [
+    AuthGuardService
+];
 
 const routes: Routes = [
   { path: '', component: MainComponent },
