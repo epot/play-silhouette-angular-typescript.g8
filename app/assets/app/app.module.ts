@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MainComponent } from './main.component';
 import { SignInComponent } from './sign.in.component';
+import { SignUpComponent } from './sign.up.component';
 import { HeaderComponent } from './header.component';
 import { AuthGuardService } from './auth.guard.service'
 import { JsonHttpGateway } from './json.http.service';
@@ -35,6 +36,7 @@ import { ErrorHandleService } from './error-handle.service';
     MainComponent,
     SignInComponent,
     HeaderComponent,
+    SignUpComponent,
   ],
   providers: [
     ErrorHandleService,

@@ -15,21 +15,21 @@
             <div class="collapse navbar-collapse" [ngClass]="{ in: !navCollapsed }" ng-click="navCollapsed = !navCollapsed">
                 <ul class="nav navbar-nav">
                     <!-- User is logged in -->
-                    <li *ngIf="isAuthenticated()"><a ui-sref="home">@Messages("home")</a></li>
+                    <li *ngIf="isAuthenticated()"><a routerLink="/">@Messages("home")</a></li>
 
                     <!-- User is logged out -->
-                    <li *ngIf="!isAuthenticated()"><a ui-sref="signIn">@Messages("home")</a></li>
+                    <li *ngIf="!isAuthenticated()"><a routerLink="/signIn">@Messages("home")</a></li>
 
                     <li><a href="https://github.com/epot/play-silhouette-angular4-seed">GitHub</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!-- User is logged in -->
-                    <li *ngIf="isAuthenticated()"><a ui-sref="home">{{user.fullName ? user.fullName : user.firstName}}</a></li>
-                    <li *ngIf="isAuthenticated()" ui-sref="signOut"><a href="">@Messages("sign.out")</a></li>
+                    <li *ngIf="isAuthenticated()"><a routerLink="/">{{user.fullName ? user.fullName : user.firstName}}</a></li>
+                    <li *ngIf="isAuthenticated()" routerLink="/signOut"><a href="">@Messages("sign.out")</a></li>
 
                     <!-- User is logged out -->
                     <li *ngIf="!isAuthenticated()"><a routerLink="/signIn">@Messages("sign.in")</a></li>
-                    <li *ngIf="!isAuthenticated()"><a ui-sref="signUp">@Messages("sign.up")</a></li>
+                    <li *ngIf="!isAuthenticated()"><a routerLink="/signUp">@Messages("sign.up")</a></li>
                 </ul>
             </div>
         </div>

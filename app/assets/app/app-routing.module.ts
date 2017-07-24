@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
 import { SignInComponent } from './sign.in.component';
 import { AuthGuardService } from './auth.guard.service';
+import { SignUpComponent } from './sign.up.component';
 
 export const CLIENT_ROUTER_PROVIDERS = [
     AuthGuardService
@@ -12,6 +13,7 @@ export const CLIENT_ROUTER_PROVIDERS = [
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'signIn', component: SignInComponent },
+  { path: 'signUp', component: SignUpComponent },
 ];
 
 @NgModule({
