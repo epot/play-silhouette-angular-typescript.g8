@@ -12,7 +12,7 @@ scalaVersion := "2.12.2"
 resolvers += Resolver.jcenterRepo
 
 lazy val silhouetteVersion = "5.0.0-RC2"
-lazy val ngVersion="4.2.5"
+lazy val ngVersion="4.3.1"
 
 libraryDependencies ++= Seq(
   // back-end
@@ -44,6 +44,7 @@ libraryDependencies ++= Seq(
   "org.webjars.npm" % "core-js" % "2.4.1",
   "org.webjars.npm" % "symbol-observable" % "1.0.1",
   "org.webjars.npm" % "ng2-toastr" % "4.1.2",
+  "org.webjars.npm" % "ngx-cookie" % "1.0.0",
 
   "org.webjars.npm" % "typescript" % "2.4.1",
 

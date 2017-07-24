@@ -3,7 +3,9 @@ import { JwtHttp, AuthService } from 'ng2-ui-auth';
 import { ITokenUser } from './interfaces';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-
+import { ViewContainerRef } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { UserService } from './user.service'
 
 @Component({
   selector: 'app-header',
@@ -17,17 +19,39 @@ export class HeaderComponent implements OnInit {
 
     constructor(private http: JwtHttp,
                 private auth: AuthService,
-                private router: Router) {
-
+                private router: Router,
+                private userService: UserService,
+                public toastr: ToastsManager,
+                vcr: ViewContainerRef) {
+         this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {
         this.user = this.auth.getPayload();
         this.expiration = this.auth.getExpirationDate();
         this.secret = this.http.get('/secret').map(response => response.text());
+
+        if (this.auth.getPayload()) {
+          this.userService
+            .getUser()
+            .then(user => {
+                this.user = user;
+              }
+            ).catch(err => {
+                this.toastr.error(err.json().message)
+            });
+        }
     }
 
     isAuthenticated(): boolean {
       return this.auth.isAuthenticated();
+    }
+
+    signOut() {
+        this.auth.logout()
+        .subscribe({
+                error: (err: any) => this.toastr.error(err.json().message),
+                complete: () => this.router.navigateByUrl('/signIn')
+            });
     }
 }

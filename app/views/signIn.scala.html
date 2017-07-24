@@ -12,8 +12,7 @@
         >
             <label for="email">@Messages("email")</label>
             <div class="alert alert-danger" *ngIf="fh.hasError(form, 'email')">@Messages("error.email")</div>
-            <input type="text"
-                   class="form-control"
+            <input class="form-control"
                    id="email"
                    name="email"
                    [formControl]="form.controls['email']"
@@ -31,7 +30,11 @@
                    [formControl]="form.controls['password']"
             >
         </div>
-        <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!form.valid">@Messages("sign.up.now")</button>
+        <button class="btn btn-lg btn-primary btn-block" [disabled]="!form.valid">@Messages("sign.in")</button>
+
+        <div>
+            <p class="not-a-member">@Messages("not.a.member") <a routerLink="/signUp">@Messages("sign.up.now")</a></p>
+        </div>
 
         @if(socialProviders.providers.nonEmpty) {
             <div class="social-providers">

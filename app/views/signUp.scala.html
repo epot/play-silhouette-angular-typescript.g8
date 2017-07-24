@@ -5,31 +5,55 @@
 
 <fieldset class="col-md-6 col-md-offset-3" ng-controller="SignUpCtrl">
     <legend >@Messages("sign.up.account")</legend>
-    <form name="form" id="sign-up-form" ng-submit="submit()" ng-model-options="{ updateOn: 'submit blur' }" autocomplete="off">
-
-        @b3.text(form("firstName"), '_hiddenLabel -> Messages("first.name"), 'placeholder -> Messages("first.name"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "firstName")
-        <div class="help-block text-danger" ng-if="form.firstName.$dirty" ng-messages="form.firstName.$error">
-            <div ng-message="required">@Messages("error.required")</div>
+    <form class="col-lg-12" [formGroup]="form" (ngSubmit)="signup(form.value)">
+        <div class="form-group"
+             [ngClass]="{'has-error':fh.hasError(form, 'firstName')}"
+        >
+            <label for="firstName">@Messages("first.name")</label>
+            <div class="alert alert-danger" *ngIf="fh.hasError(form, 'firstName')">@Messages("error.required")</div>
+            <input class="form-control"
+                   id="firstName"
+                   name="firstName"
+                   [formControl]="form.controls['firstName']"
+            >
         </div>
-
-        @b3.text(form("lastName"), '_hiddenLabel -> Messages("last.name"), 'placeholder -> Messages("last.name"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "lastName")
-        <div class="help-block text-danger" ng-if="form.lastName.$dirty" ng-messages="form.lastName.$error">
-            <div ng-message="required">@Messages("error.required")</div>
+        <div class="form-group"
+             [ngClass]="{'has-error':fh.hasError(form, 'lastName')}"
+        >
+            <label for="lastName">@Messages("last.name")</label>
+            <div class="alert alert-danger" *ngIf="fh.hasError(form, 'lastName')">@Messages("error.required")</div>
+            <input class="form-control"
+                   id="lastName"
+                   name="email"
+                   [formControl]="form.controls['lastName']"
+            >
         </div>
-
-        @b3.text(form("email"), '_hiddenLabel -> Messages("email"), 'placeholder -> Messages("email"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "email")
-        <div class="help-block text-danger" ng-if="form.email.$dirty" ng-messages="form.email.$error">
-            <div ng-message="required">@Messages("error.required")</div>
-            <div ng-message="email">@Messages("error.email")</div>
+        <div class="form-group"
+             [ngClass]="{'has-error':fh.hasError(form, 'email')}"
+        >
+            <label for="email">@Messages("email")</label>
+            <div class="alert alert-danger" *ngIf="fh.hasError(form, 'email')">@Messages("error.email")</div>
+            <input class="form-control"
+                   id="email"
+                   name="email"
+                   [formControl]="form.controls['email']"
+            >
         </div>
-
-        @b3.password(form("password"), '_hiddenLabel -> Messages("password"), 'placeholder -> Messages("password"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "password")
-        <div class="help-block text-danger" ng-if="form.password.$dirty" ng-messages="form.password.$error">
-            <div ng-message="required">@Messages("error.required")</div>
+        <div class="form-group"
+             [ngClass]="{'has-error':fh.hasError(form, 'password')}"
+        >
+            <label for="pwd">@Messages("password")</label>
+            <div class="alert alert-danger" *ngIf="fh.hasError(form, 'password')">@Messages("error.required")</div>
+            <input type="password"
+                   class="form-control"
+                   id="pwd"
+                   name="password"
+                   [formControl]="form.controls['password']"
+            >
         </div>
 
         <div class="form-group">
-            <button ng-disabled="form.$invalid" id="submit" type="submit" value="submit" class="btn btn-lg btn-primary btn-block">@Messages("sign.up")</button>
+            <button ng-disabled="form.$invalid" id="submit" value="submit" class="btn btn-lg btn-primary btn-block">@Messages("sign.up")</button>
         </div>
 
         <div>

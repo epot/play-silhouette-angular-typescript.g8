@@ -11,7 +11,7 @@ export const CLIENT_ROUTER_PROVIDERS = [
 ];
 
 const routes: Routes = [
-  { path: '', component: MainComponent },
+  { path: '', component: MainComponent, canActivate: [AuthGuardService] },
   { path: 'signIn', component: SignInComponent },
   { path: 'signUp', component: SignUpComponent },
 ];

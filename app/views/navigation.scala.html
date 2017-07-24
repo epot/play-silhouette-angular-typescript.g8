@@ -25,7 +25,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- User is logged in -->
                     <li *ngIf="isAuthenticated()"><a routerLink="/">{{user.fullName ? user.fullName : user.firstName}}</a></li>
-                    <li *ngIf="isAuthenticated()" routerLink="/signOut"><a href="">@Messages("sign.out")</a></li>
+                    <li *ngIf="isAuthenticated()" (click)="signOut()"><a href="">@Messages("sign.out")</a></li>
 
                     <!-- User is logged out -->
                     <li *ngIf="!isAuthenticated()"><a routerLink="/signIn">@Messages("sign.in")</a></li>

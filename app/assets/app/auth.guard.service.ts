@@ -1,9 +1,7 @@
 import { RouterStateSnapshot, ActivatedRouteSnapshot, Router, CanActivate } from '@angular/router';
 import { AuthService } from 'ng2-ui-auth';
 import { Injectable } from '@angular/core';
-/**
- * Created by Ron on 03/10/2016.
- */
+
 @Injectable()
 export class AuthGuardService implements CanActivate {
     constructor(private auth: AuthService, private router: Router) {}
@@ -13,7 +11,7 @@ export class AuthGuardService implements CanActivate {
     ) {
         if (this.auth.isAuthenticated()) { return true; }
         console.log('unauthenticated navigating to login');
-        this.router.navigateByUrl('login');
+        this.router.navigateByUrl('/signIn');
         return false;
     }
 }

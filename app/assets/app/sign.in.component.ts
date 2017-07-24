@@ -4,7 +4,6 @@ import { ILoginData } from './interfaces';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { FormHelperService } from './form-helper.service';
-import { ErrorHandleService } from './error-handle.service';
 import { ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
@@ -23,7 +22,8 @@ export class SignInComponent implements OnInit {
                 private router: Router,
                 private fb: FormBuilder,
                 public fh: FormHelperService,
-                private eh: ErrorHandleService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+                public toastr: ToastsManager,
+                vcr: ViewContainerRef) {
          this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -38,16 +38,16 @@ export class SignInComponent implements OnInit {
     login(loginData: ILoginData) {
         this.auth.login(loginData)
             .subscribe({
-                error: (err: any) => this.toastr.error(err.toString()),  // this.eh.handleError(err),
-                complete: () => this.router.navigateByUrl('main')
+                error: (err: any) => this.toastr.error(err.json().message),
+                complete: () => this.router.navigateByUrl('/')
             });
     }
 
     authenticate(provider: string) {
         this.auth.authenticate(provider)
             .subscribe({
-                error: (err: any) => this.toastr.error(err.toString()),  // this.eh.handleError(err),
-                complete: () => this.router.navigateByUrl('main')
+                error: (err: any) => this.toastr.error(err.json().message),
+                complete: () => this.router.navigateByUrl('/')
             });
     }
 }

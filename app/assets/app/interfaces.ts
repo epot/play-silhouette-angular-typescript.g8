@@ -17,14 +17,15 @@ export interface IGoogleProfile {
 
 
 export interface ILoginData {
-    username: string;
+    email: string;
     password: string;
 }
-// export interface ISignupData extends ILoginData {
-// }
 
 export interface ITokenUser {
-    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    fullName?: string;
     displayName?: string;
     picture?: string;
 }

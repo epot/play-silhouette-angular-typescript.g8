@@ -1,13 +1,10 @@
-import { Router } from '@angular/router';
-import { AuthService } from 'ng2-ui-auth';
-import { ILoginData } from './interfaces';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
-import { FormHelperService } from './form-helper.service';
-import { ErrorHandleService } from './error-handle.service';
+import {Router} from '@angular/router';
+import {AuthService} from 'ng2-ui-auth';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+import {FormHelperService} from './form-helper.service';
 import { ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-
 /**
  * Created by Ron on 03/10/2016.
  */
@@ -23,31 +20,34 @@ export class SignUpComponent implements OnInit {
                 private router: Router,
                 private fb: FormBuilder,
                 public fh: FormHelperService,
-                private eh: ErrorHandleService, public toastr: ToastsManager, vcr: ViewContainerRef) {
-         this.toastr.setRootViewContainerRef(vcr);
+                public toastr: ToastsManager,
+                vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {
         this.form = this.fb.group({
-            email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required]),
-            rememberMe: new FormControl(true),
+            'firstName': new FormControl('', [Validators.required]),
+            'lastName': new FormControl('', [Validators.required]),
+            'email': new FormControl('', [Validators.required, Validators.email]),
+            'password': new FormControl('', [Validators.required]),
         })
     }
 
-    login(loginData: ILoginData) {
-        this.auth.login(loginData)
+    signup(signupData: any) {
+        this.auth.signup({
+            firstName: signupData['firstName'],
+            lastName: signupData['lastName'],
+            email: signupData['email'],
+            password: signupData['password']
+        })
             .subscribe({
-                error: (err: any) => this.toastr.error(err.toString()),  // this.eh.handleError(err),
-                complete: () => this.router.navigateByUrl('main')
-            });
-    }
-
-    authenticate(provider: string) {
-        this.auth.authenticate(provider)
-            .subscribe({
-                error: (err: any) => this.toastr.error(err.toString()),  // this.eh.handleError(err),
-                complete: () => this.router.navigateByUrl('main')
+                next: (response) => {
+                    console.log(response.json());
+                    this.auth.setToken(response.json().token)
+                },
+                error: (err: any) => this.toastr.error(err.json().message),
+                complete: () => this.router.navigateByUrl('/')
             });
     }
 }

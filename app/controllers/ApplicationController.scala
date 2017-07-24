@@ -28,6 +28,7 @@ class ApplicationController @Inject() (
    *
    * @return The result to display.
    */
+
   def user = silhouette.SecuredAction.async { implicit request =>
     Future.successful(Ok(Json.toJson(request.identity)))
   }

@@ -12,7 +12,7 @@ export class MyAuthConfig extends CustomConfig {
     tokenName = 'token';
     tokenPrefix = 'ng2-ui-auth'; // Local Storage name prefix
     authHeader = 'X-Auth-Token';
-    // storageType = 'localStorage';
+    storageType = 'sessionStorage' as 'sessionStorage';
     providers = {
         google: {
             clientId: GOOGLE_CLIENT_ID,
