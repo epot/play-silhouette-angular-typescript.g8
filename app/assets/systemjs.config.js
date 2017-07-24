@@ -20,6 +20,8 @@
             '@angular/platform-browser': 'npm:angular__platform-browser/bundles/platform-browser.umd.js',
             '@angular/platform-browser-dynamic': 'npm:angular__platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
             '@angular/platform-browser/animations': 'npm:angular__platform-browser/bundles/platform-browser-animations.umd.js',   
+            '@angular/animations/browser':'npm:angular__animations/bundles/animations-browser.umd.js',
+            '@angular/animations':'npm:angular__animations/bundles/animations.umd.js',
             '@angular/http': 'npm:angular__http/bundles/http.umd.js',
             '@angular/router': 'npm:angular__router/bundles/router.umd.js',
             '@angular/forms': 'npm:angular__forms/bundles/forms.umd.js',

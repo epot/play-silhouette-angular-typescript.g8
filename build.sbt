@@ -30,6 +30,7 @@ libraryDependencies ++= Seq(
   "org.webjars.npm" % "ng2-ui-auth" % "7.0.2",
   "org.webjars.npm" % "angular__common" % ngVersion,
   "org.webjars.npm" % "angular__compiler" % ngVersion,
+  "org.webjars.npm" % "angular__animations" % ngVersion,
   "org.webjars.npm" % "angular__core" % ngVersion,
   "org.webjars.npm" % "angular__http" % ngVersion,
   "org.webjars.npm" % "angular__forms" % ngVersion,

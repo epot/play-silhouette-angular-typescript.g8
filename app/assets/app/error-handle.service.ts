@@ -1,29 +1,26 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Response } from '@angular/http';
 
 @Injectable()
 export class ErrorHandleService {
-    constructor(private toastr: ToastsManager/*, vcr: ViewContainerRef*/) {
-        // this.toastr.setRootViewContainerRef(vcr);
-    }
 
-    handleError(err: any) {
+    handleError(toastr: ToastsManager, err: any) {
         if (typeof err === 'string') {
-            this.toastr.error(err)
+            toastr.error(err);
         } else if (err instanceof Response) {
             const res: Response = err;
             if (res.text() && res.text() !== res.statusText) {
-                this.toastr.error(res.text(), res.statusText);
+                toastr.error(res.text(), res.statusText);
             } else {
-                this.toastr.error(res.statusText);
+                toastr.error(res.statusText);
             }
         } else if (err && err.message) {
-            this.toastr.error(err.message);
+            toastr.error('Login failed', err.message);
         } else if (err) {
-            this.toastr.error(err.toString());
+            toastr.error('Login failed', err.toString());
         } else {
-            this.toastr.error('An unknown error has occurred');
+            toastr.error('An unknown error has occurred');
         }
     }
 }

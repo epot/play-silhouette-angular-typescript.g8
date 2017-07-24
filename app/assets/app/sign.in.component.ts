@@ -38,7 +38,7 @@ export class SignInComponent implements OnInit {
     login(loginData: ILoginData) {
         this.auth.login(loginData)
             .subscribe({
-                error: (err: any) => this.toastr.error('You are awesome!', 'Success!'),  // this.eh.handleError(err),
+                error: (err: any) => this.toastr.error(err.toString()),  // this.eh.handleError(err),
                 complete: () => this.router.navigateByUrl('main')
             });
     }
@@ -46,7 +46,7 @@ export class SignInComponent implements OnInit {
     authenticate(provider: string) {
         this.auth.authenticate(provider)
             .subscribe({
-                error: (err: any) => this.toastr.error('You are awesome!', 'Success!'),  // this.eh.handleError(err),
+                error: (err: any) => this.toastr.error(err.toString()),  // this.eh.handleError(err),
                 complete: () => this.router.navigateByUrl('main')
             });
     }
