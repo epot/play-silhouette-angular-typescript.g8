@@ -23,20 +23,19 @@ export class HeaderComponent implements OnInit {
                 private userService: UserService,
                 public toastr: ToastsManager,
                 vcr: ViewContainerRef) {
-         this.toastr.setRootViewContainerRef(vcr);
+        this.toastr.setRootViewContainerRef(vcr);
     }
 
     ngOnInit() {
-        this.user = this.auth.getPayload();
         this.expiration = this.auth.getExpirationDate();
         this.secret = this.http.get('/secret').map(response => response.text());
 
         if (this.auth.getPayload()) {
-          this.userService
+            this.userService
             .getUser()
             .then(user => {
                 this.user = user;
-              }
+                }
             ).catch(err => {
                 this.toastr.error(err.json().message)
             });
@@ -44,7 +43,7 @@ export class HeaderComponent implements OnInit {
     }
 
     isAuthenticated(): boolean {
-      return this.auth.isAuthenticated();
+      return this.user && this.auth.isAuthenticated();
     }
 
     signOut() {
