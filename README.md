@@ -14,6 +14,17 @@ your needs. It was migrated from the existing seed with [AngularJS](https://gith
 
 (The "Build App" phase will take a few minutes)
 
+## Dependencies
+
+* Play! Framework 2.6
+* Scala 2.12
+* Silhouette 5.0.0-RC
+* Node
+* Typescript
+* Angular 4.3
+* Webpack
+* RxJS
+
 ## Features
 
 * Sign Up

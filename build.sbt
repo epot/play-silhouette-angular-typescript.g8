@@ -1,6 +1,6 @@
-import com.typesafe.sbt.SbtScalariform._
 import play.sbt.routes.RoutesKeys
-
+import play.sbt.PlayImport.PlayKeys.playRunHooks
+import com.typesafe.sbt.SbtScalariform._
 import scalariform.formatter.preferences._
 
 name := "play-silhouette-angular4-seed"
@@ -11,8 +11,9 @@ scalaVersion := "2.12.2"
 
 resolvers += Resolver.jcenterRepo
 
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
+
 lazy val silhouetteVersion = "5.0.0-RC2"
-lazy val ngVersion="4.3.1"
 
 libraryDependencies ++= Seq(
   // back-end
@@ -27,59 +28,31 @@ libraryDependencies ++= Seq(
   // frontend
   "org.webjars" %% "webjars-play" % "2.6.1",
   "org.webjars" % "bootstrap" % "3.3.7-1",
-  "org.webjars.npm" % "ng2-ui-auth" % "7.0.2",
-  "org.webjars.npm" % "angular__common" % ngVersion,
-  "org.webjars.npm" % "angular__compiler" % ngVersion,
-  "org.webjars.npm" % "angular__animations" % ngVersion,
-  "org.webjars.npm" % "angular__core" % ngVersion,
-  "org.webjars.npm" % "angular__http" % ngVersion,
-  "org.webjars.npm" % "angular__forms" % ngVersion,
-  "org.webjars.npm" % "angular__router" % ngVersion,
-  "org.webjars.npm" % "angular__platform-browser-dynamic" % ngVersion,
-  "org.webjars.npm" % "angular__platform-browser" % ngVersion,
-  "org.webjars.npm" % "systemjs" % "0.20.14",
-  "org.webjars.npm" % "rxjs" % "5.4.2",
-  "org.webjars.npm" % "reflect-metadata" % "0.1.8",
-  "org.webjars.npm" % "zone.js" % "0.8.4",
-  "org.webjars.npm" % "core-js" % "2.4.1",
-  "org.webjars.npm" % "symbol-observable" % "1.0.1",
-  "org.webjars.npm" % "ng2-toastr" % "4.1.2",
-  "org.webjars.npm" % "ngx-cookie" % "1.0.0",
-
-  "org.webjars.npm" % "typescript" % "2.4.1",
-
-  //tslint dependency
-  "org.webjars.npm" % "tslint-eslint-rules" % "3.4.0",
-  "org.webjars.npm" % "tslint-microsoft-contrib" % "4.0.0",
-  //"org.webjars.npm" % "codelyzer" % "3.1.1", see below
-  "org.webjars.npm" % "types__jasmine" % "2.5.53" % "test",
-  //test
-  "org.webjars.npm" % "jasmine-core" % "2.6.4",
 
   guice,
   ehcache,
   filters
 )
 
-dependencyOverrides += "org.webjars.npm" % "minimatch" % "3.0.0"
 
-// use the webjars npm directory (target/web/node_modules ) for resolution of module imports of angular2/core etc
-resolveFromWebjarsNodeModulesDir := true
+//Prevent documentation of API for production bundles
+sources in (Compile, doc) := Seq.empty
+publishArtifact in (Compile, packageDoc) := false
 
-(projectTestFile in typescript) := Some("tsconfig.test.json")
+lazy val isWin = System.getProperty("os.name").toUpperCase().contains("WIN")
+val appPath = if (isWin) "\\app\\frontend" else "./app/frontend"
+val webpackBuild = taskKey[Unit]("Webpack build task.")
 
-// use the combined tslint and eslint rules plus ng2 lint rules
-(rulesDirectories in tslint) := Some(List(
-  tslintEslintRulesDir.value,
-  ng2LintRulesDir.value //codelyzer uses 'cssauron' which can't resolve 'through' see https://github.com/chrisdickinson/cssauron/pull/10
-))
+webpackBuild := {
+  if (isWin) Process("cmd /c npm run build", file(appPath)).run
+  else Process("npm run build", file(appPath)).run
+}
 
-// the naming conventions of our test files
-jasmineFilter in jasmine := GlobFilter("*Test.js") | GlobFilter("*Spec.js") | GlobFilter("*.spec.js")
-logLevel in jasmine := Level.Info
-logLevel in tslint := Level.Info
+(packageBin in Universal) := ((packageBin in Universal) dependsOn webpackBuild).value
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+// Webpack server process when running locally and build actions for production bundle
+lazy val frontendDirectory = baseDirectory {_ / appPath}
+playRunHooks += frontendDirectory.map(WebpackServer(_)).value
 
 routesGenerator := InjectedRoutesGenerator
 RoutesKeys.routesImport -= "controllers.Assets.Asset"

@@ -14,7 +14,8 @@ dist
 /RUNNING_PID
 /.settings
 /bin
-/node_modules
+/app/frontend/node_modules
+npm.debug.log
 
 #ruby
 .bundle

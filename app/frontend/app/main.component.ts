@@ -8,8 +8,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'my-main',
-  templateUrl: 'views/home.html',
-  styleUrls: ['./main.component.css']
+  templateUrl: 'views/home.html'
 })
 export class MainComponent implements OnInit {
   user: ITokenUser;

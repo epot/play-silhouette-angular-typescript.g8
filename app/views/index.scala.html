@@ -3,20 +3,12 @@
 <html lang="en" data-framework="angular2">
     <head>
         <base href="/" />
-        @* In this version of the application the typescript compilation is done by the play framework.
-           The browser downloads .js files. *@
         <meta charset="utf-8">
         <title>Play! Silhouette Angular4 Seed</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.min.css")" />
-        <link href="@routes.Assets.versioned("lib/ng2-toastr/bundles/ng2-toastr.min.css")" rel="stylesheet" />
         <link rel="stylesheet" href="@routes.Assets.at("styles/main.css")">
-        <script type='text/javascript' src='@routes.Assets.versioned("lib/core-js/client/shim.min.js")'></script>
-        <script type='text/javascript' src='@routes.Assets.versioned("lib/zone.js/dist/zone.js")'></script>
-        <script type='text/javascript' src='@routes.Assets.versioned("lib/systemjs/dist/system.src.js")'></script>
 
-        <script type='text/javascript' src='@routes.Assets.versioned("systemjs.config.js")'></script>
-        @* our app is downloaded as individual javascript files by SystemJs after compilation by sbt-typescript*@
-        <script type='text/javascript' src="@routes.Assets.at("javascript/main.js")"></script>
+        <script type="text/javascript" src="/bundles/bundle.js" charset="utf-8"></script>
     </head>
     <body>
         <my-root>Loading...</my-root>

@@ -1,0 +1,57 @@
+{
+  "name": "play-silhouette-angular4-seed",
+  "version": "1.0.0",
+  "description": "Play Silhouette Angular4 Seed",
+  "private": true,
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test",
+    "build": "webpack -p --config ./webpack/webpack.base.config.js",
+    "start": "node ./webpack/webpack.server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wigahluk/play-webpack.git"
+  },
+  "author": "Oscar Ponce",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@angular/animations": "4.3.1",
+    "@angular/common": "4.3.1",
+    "@angular/compiler": "4.3.1",
+    "@angular/core": "4.3.1",
+    "@angular/forms": "4.3.1",
+    "@angular/http": "4.3.1",
+    "@angular/platform-browser": "4.3.1",
+    "@angular/platform-browser-dynamic": "4.3.1",
+    "@angular/router": "4.3.1",
+    "core-js": "2.4.1",
+    "ng2-toastr": "4.1.2",
+    "ng2-ui-auth": "^7.0.2",
+    "ngx-cookie": "1.0.0",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "5.4.2",
+    "symbol-observable": "1.0.1",
+    "zone.js": "0.8.12",
+    "polyfills": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/angular": "1.6.25",
+    "@types/node": "8.0.7",
+    "ts-loader": "2.2.2",
+    "typescript": "2.4.0",
+    "webpack": "3.3.0",
+    "webpack-dev-server": "2.6.1",
+    "tslint": "^4.0.0",
+    "tslint-eslint-rules": "3.4.0",
+    "tslint-microsoft-contrib": "4.0.0",
+    "@types/jasmine": "2.5.53",
+    "jasmine-core": "2.6.4"
+  },
+  "engines": {
+    "node": ">= 5",
+    "npm": ">= 3"
+  }
+}
