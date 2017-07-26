@@ -49,7 +49,10 @@ export class SignInComponent implements OnInit {
         this.auth.authenticate(provider)
             .subscribe({
                 error: (err: any) => this.eh.handleError(err),
-                complete: () => this.router.navigateByUrl('/')
+                complete: () => {
+                    this.userService.renewUser();
+                    this.router.navigateByUrl('/')
+                }
             });
     }
 }

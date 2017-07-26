@@ -1,12 +1,12 @@
 Play Silhouette Angular4 Seed Project
 =====================================
 
-This is an ongoing work and plan to be in a working state by mid august 2017.
+This is an ongoing work and needs to be refined. The OAuth2 authentication is using un unsafe workaround (follow updates [here](http://discourse.silhouette.rocks/t/silhouette-and-angular/159/10)). Plenty of cleanup needs to be done as well.
 
 The Play Silhouette Angular Seed project shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be used
 to create a SPA with [Angular](https://angular.io/)/[Satellizer](https://github.com/sahat/satellizer) and Play
 scaffolded by [yeoman](https://github.com/tuplejump/play-yeoman). It's a starting point which can be extended to fit
-your needs. It was migrated from the existing seed with [AngularJS](https://github.com/mohiva/play-silhouette-angular-seed).
+your needs. It was migrated from the existing seed with AngularJS: [play-silhouette-angular-seed](https://github.com/mohiva/play-silhouette-angular-seed).
 
 ## Example
 

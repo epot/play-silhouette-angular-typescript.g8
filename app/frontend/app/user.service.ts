@@ -22,6 +22,7 @@ export class UserService {
   constructor(
     private auth: AuthService,
     private http: HttpClient) {
+      this.renewUser();
   }
 
   logout() {

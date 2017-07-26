@@ -27,7 +27,7 @@ import net.ceedubs.ficus.readers.EnumerationReader._
 import net.codingwell.scalaguice.ScalaModule
 import play.api.Configuration
 import play.api.libs.ws.WSClient
-import utils.auth.DefaultEnv
+import utils.auth.{ DefaultEnv, DummySocialStateHandler }
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -252,15 +252,11 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
 
   /**
    * Provides the social state handler.
-   *
-   * @param signer The signer implementation.
    * @return The social state handler implementation.
    */
   @Provides
-  def provideSocialStateHandler(
-    @Named("social-state-signer") signer: Signer): SocialStateHandler = {
-
-    new DefaultSocialStateHandler(Set(), signer)
+  def provideSocialStateHandler(): SocialStateHandler = {
+    new DummySocialStateHandler(Set())
   }
 
   /**
