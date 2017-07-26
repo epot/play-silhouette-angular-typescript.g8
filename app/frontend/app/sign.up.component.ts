@@ -1,13 +1,10 @@
-import {Router} from '@angular/router';
-import {AuthService} from 'ng2-ui-auth';
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
-import {FormHelperService} from './form-helper.service';
-import { ViewContainerRef } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-/**
- * Created by Ron on 03/10/2016.
- */
+import { Router } from '@angular/router';
+import { AuthService } from 'ng2-ui-auth';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormHelperService } from './form-helper.service';
+import { ErrorHandleService } from './error-handle.service';
+import { UserService } from './user.service'
 
 @Component({
     selector: 'my-signup',
@@ -20,9 +17,8 @@ export class SignUpComponent implements OnInit {
                 private router: Router,
                 private fb: FormBuilder,
                 public fh: FormHelperService,
-                public toastr: ToastsManager,
-                vcr: ViewContainerRef) {
-        this.toastr.setRootViewContainerRef(vcr);
+                private eh: ErrorHandleService,
+                private userService: UserService) {
     }
 
     ngOnInit() {
@@ -44,9 +40,10 @@ export class SignUpComponent implements OnInit {
             .subscribe({
                 next: (response) => {
                     console.log(response.json());
-                    this.auth.setToken(response.json().token)
+                    this.auth.setToken(response.json().token);
+                    this.userService.renewUser();
                 },
-                error: (err: any) => this.toastr.error(err.json().message),
+                error: (err: any) => this.eh.handleError(err),
                 complete: () => this.router.navigateByUrl('/')
             });
     }

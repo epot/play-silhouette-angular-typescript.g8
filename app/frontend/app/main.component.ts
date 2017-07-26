@@ -1,35 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { UserService } from './user.service'
-import { AuthService } from 'ng2-ui-auth';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { ITokenUser } from './interfaces';
-import { ViewContainerRef } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Subscription } from 'rxjs/Subscription';
+import { UserService } from './user.service'
 
 @Component({
   selector: 'my-main',
   templateUrl: 'views/home.html'
 })
-export class MainComponent implements OnInit {
-  user: ITokenUser;
+export class MainComponent implements OnDestroy {
+  public user: ITokenUser;
+  private _userSubscription: Subscription;
 
-  constructor(
-    private router: Router,
-    private auth: AuthService,
-    private userService: UserService,
-    public toastr: ToastsManager,
-    vcr: ViewContainerRef) {
-      this.toastr.setRootViewContainerRef(vcr);
+  constructor(private userService: UserService) {
+    this._userSubscription = userService.userChanged$.subscribe(
+      user => {
+        this.user = user;
+    });
   }
 
-  ngOnInit() {
-      this.userService
-        .getUser()
-        .then(user => {
-            this.user = user;
-          }
-        ).catch(err => {
-            this.toastr.error(err.json().message)
-        });
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this._userSubscription.unsubscribe();
   }
 }

@@ -35,7 +35,9 @@
     "rxjs": "5.4.2",
     "symbol-observable": "1.0.1",
     "zone.js": "0.8.12",
-    "polyfills": "^2.1.1"
+    "polyfills": "^2.1.1",
+    "style-loader": "^0.18.2",
+    "css-loader": "^0.28.4"
   },
   "devDependencies": {
     "@types/angular": "1.6.25",
