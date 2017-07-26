@@ -40,7 +40,7 @@ export class SignInComponent implements OnInit {
                 error: (err: any) => this.eh.handleError(err),
                 complete: () => {
                     this.userService.renewUser();
-                    this.router.navigateByUrl('/')
+                    this.router.navigateByUrl('/');
                 }
             });
     }
@@ -51,7 +51,7 @@ export class SignInComponent implements OnInit {
                 error: (err: any) => this.eh.handleError(err),
                 complete: () => {
                     this.userService.renewUser();
-                    this.router.navigateByUrl('/')
+                    this.router.navigateByUrl('/');
                 }
             });
     }

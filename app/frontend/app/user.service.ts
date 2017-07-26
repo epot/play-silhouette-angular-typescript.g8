@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'ng2-ui-auth';
@@ -21,8 +22,15 @@ export class UserService {
 
   constructor(
     private auth: AuthService,
+    private router: Router,
     private http: HttpClient) {
-      this.renewUser();
+      this.renewUser().catch(_ => {
+          this.logout().subscribe({
+            error: (err: any) => this.handleError(err),
+            complete: () => this.router.navigateByUrl('/signIn')
+          });
+        }
+      );
   }
 
   logout() {
