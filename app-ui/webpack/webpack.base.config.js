@@ -35,7 +35,7 @@ var config = {
                 use: 'ts-loader'
             },
             {
-                test: /\.(jpg|png)$/,
+                test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/,
                 use: 'url-loader?limit=100000'
             },
             {

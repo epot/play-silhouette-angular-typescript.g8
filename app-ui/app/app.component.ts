@@ -1,4 +1,5 @@
 import 'ng2-toastr/bundles/ng2-toastr.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { AfterViewChecked, Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 import { ErrorHandleService } from './error-handle.service';
