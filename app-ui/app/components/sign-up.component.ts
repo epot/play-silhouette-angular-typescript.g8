@@ -1,10 +1,11 @@
 import { Router } from '@angular/router';
-import { AuthService } from 'ng2-ui-auth';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { FormHelperService } from './form-helper.service';
-import { ErrorHandleService } from './error-handle.service';
-import { UserService } from './user.service'
+import { AuthService } from 'ng2-ui-auth';
+
+import { FormHelperService } from '../services/form-helper.service';
+import { ErrorHandleService } from '../services/error-handle.service';
+import { UserService } from '../services/user.service'
 
 @Component({
     selector: 'my-signup',

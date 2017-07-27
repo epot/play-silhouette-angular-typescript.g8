@@ -1,14 +1,15 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { ITokenUser } from './interfaces';
 import { Subscription } from 'rxjs/Subscription';
-import { UserService } from './user.service'
+
+import { UserService } from '../services/user.service'
+import { TokenUser } from '../token-user';
 
 @Component({
   selector: 'my-main',
   templateUrl: 'views/home.html'
 })
 export class MainComponent implements OnDestroy {
-  public user: ITokenUser;
+  public user: TokenUser;
   private _userSubscription: Subscription;
 
   constructor(private userService: UserService) {

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MainComponent } from './main.component';
-import { SignInComponent } from './sign.in.component';
-import { AuthGuardService } from './auth.guard.service';
-import { SignUpComponent } from './sign.up.component';
+import { MainComponent } from './components/main.component';
+import { SignInComponent } from './components/sign-in.component';
+import { SignUpComponent } from './components/sign-up.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 export const CLIENT_ROUTER_PROVIDERS = [
     AuthGuardService

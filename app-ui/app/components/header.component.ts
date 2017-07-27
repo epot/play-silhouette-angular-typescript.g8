@@ -1,10 +1,11 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { JwtHttp, AuthService } from 'ng2-ui-auth';
-import { ITokenUser } from './interfaces';
 import { Router } from '@angular/router';
-import { UserService } from './user.service'
-import { ErrorHandleService } from './error-handle.service';
+import { JwtHttp, AuthService } from 'ng2-ui-auth';
 import { Subscription } from 'rxjs/Subscription';
+
+import { TokenUser } from '../token-user';
+import { UserService } from '../services/user.service'
+import { ErrorHandleService } from '../services/error-handle.service';
 
 @Component({
   selector: 'app-header',
@@ -12,14 +13,14 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class HeaderComponent implements OnDestroy {
 
-  public user: ITokenUser;
-  private _userSubscription: Subscription;
+  public user: TokenUser;
+  private userSubscription: Subscription;
 
   constructor(private http: JwtHttp,
               private router: Router,
               private userService: UserService,
               private eh: ErrorHandleService) {
-    this._userSubscription = userService.userChanged$.subscribe(
+    this.userSubscription = userService.userChanged$.subscribe(
       user => {
         this.user = user;
     });
@@ -39,6 +40,6 @@ export class HeaderComponent implements OnDestroy {
 
   ngOnDestroy() {
     // prevent memory leak when component destroyed
-    this._userSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 }

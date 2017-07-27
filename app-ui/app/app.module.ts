@@ -1,29 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule  } from '@angular/common/http';
-import { Ng2UiAuthModule } from 'ng2-ui-auth';
-import { MyAuthConfig } from './config';
-import { FormHelperService } from './form-helper.service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { CLIENT_ROUTER_PROVIDERS } from './app-routing.module';
-import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './token.interceptor';
+import { Ng2UiAuthModule } from 'ng2-ui-auth';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { CookieModule } from 'ngx-cookie';
 
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { MainComponent } from './main.component';
-import { SignInComponent } from './sign.in.component';
-import { SignUpComponent } from './sign.up.component';
-import { HeaderComponent } from './header.component';
-import { AuthGuardService } from './auth.guard.service'
-import { JsonHttpGateway } from './json.http.service';
-import { ErrorHandleService } from './error-handle.service';
-import { UserService } from './user.service';
+import { AppRoutingModule, CLIENT_ROUTER_PROVIDERS } from './app-routing.module';
+import { MyAuthConfig } from './config';
+import { TokenInterceptor } from './token-interceptor';
+import { AppComponent } from './components/app.component';
+import { HeaderComponent } from './components/header.component';
+import { MainComponent } from './components/main.component';
+import { SignInComponent } from './components/sign-in.component';
+import { SignUpComponent } from './components/sign-up.component';
+import { AuthGuardService } from './services/auth-guard.service'
+import { ErrorHandleService } from './services/error-handle.service';
+import { FormHelperService } from './services/form-helper.service';
+import { JsonHttpGateway } from './services/json-http.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   imports: [

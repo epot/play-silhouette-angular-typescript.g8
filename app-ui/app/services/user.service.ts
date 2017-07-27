@@ -1,21 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'ng2-ui-auth';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import 'rxjs/add/operator/toPromise';
 
-import { ITokenUser } from './interfaces';
+import { TokenUser } from '../token-user';
 
 @Injectable()
 export class UserService {
-  public user: ITokenUser;
+  public user: TokenUser;
   expiration: Date;
   secret: Observable<Object>;
-  userChangedSource = new Subject<ITokenUser>();
+  userChangedSource = new Subject<TokenUser>();
   userChanged$ = this.userChangedSource.asObservable();
 
   private headers = new Headers({'Content-Type': 'application/json'});
@@ -38,14 +37,14 @@ export class UserService {
     return this.auth.logout();
   }
 
-  renewUser(): Promise<ITokenUser> {
+  renewUser(): Promise<TokenUser> {
     this.expiration = this.auth.getExpirationDate();
     this.secret = this.http.get('/secret').map(response => response);
 
     return this.http.get('/user')
       .toPromise()
       .then(response => {
-          this.user = response as ITokenUser;
+          this.user = response as TokenUser;
           this.userChangedSource.next(this.user);
           return this.user;
         })

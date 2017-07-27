@@ -1,15 +1,12 @@
 import { Router } from '@angular/router';
-import { AuthService } from 'ng2-ui-auth';
-import { ILoginData } from './interfaces';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
-import { FormHelperService } from './form-helper.service';
-import { ErrorHandleService } from './error-handle.service';
-import { UserService } from './user.service'
+import { AuthService } from 'ng2-ui-auth';
 
-/**
- * Created by Ron on 03/10/2016.
- */
+import { FormHelperService } from '../services/form-helper.service';
+import { ErrorHandleService } from '../services/error-handle.service';
+import { UserService } from '../services/user.service'
+import { LoginData } from '../login-data';
 
 @Component({
     selector: 'my-login',
@@ -34,7 +31,7 @@ export class SignInComponent implements OnInit {
         })
     }
 
-    login(loginData: ILoginData) {
+    login(loginData: LoginData) {
         this.auth.login(loginData)
             .subscribe({
                 error: (err: any) => this.eh.handleError(err),

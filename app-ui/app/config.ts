@@ -1,7 +1,5 @@
 import { CustomConfig } from 'ng2-ui-auth';
-/**
- * Created by Ron on 03/10/2016.
- */
+
 export const GOOGLE_CLIENT_ID = '445581959814-s926r5damu6oeqcug10lk0vmc7vd0qva.apps.googleusercontent.com';
 
 export class MyAuthConfig extends CustomConfig {
@@ -16,5 +14,6 @@ export class MyAuthConfig extends CustomConfig {
     providers = {
         google: {
             clientId: GOOGLE_CLIENT_ID,
-            url: '/authenticate/google'}};
+            url: '/authenticate/google'}
+        };
 }
