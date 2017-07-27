@@ -6,10 +6,6 @@ jdk:
 - oraclejdk8
 scala:
 - 2.12.2
-script:
-- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash framework/bin/sourceclear; fi
-- framework/bin/whitesource
-- framework/bin/travis
 cache:
   directories:
   - $HOME/.ivy2/cache
