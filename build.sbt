@@ -1,5 +1,4 @@
 import play.sbt.routes.RoutesKeys
-import play.sbt.PlayImport.PlayKeys.playRunHooks
 import com.typesafe.sbt.SbtScalariform._
 import scalariform.formatter.preferences._
 
@@ -9,50 +8,17 @@ version := "1.0.0"
 
 scalaVersion := "2.12.2"
 
-resolvers += Resolver.jcenterRepo
-
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-lazy val silhouetteVersion = "5.0.0-RC2"
-
 libraryDependencies ++= Seq(
-  // back-end
-  "com.mohiva" %% "play-silhouette" % silhouetteVersion,
-  "com.mohiva" %% "play-silhouette-persistence" % silhouetteVersion,
-  "com.mohiva" %% "play-silhouette-password-bcrypt" % silhouetteVersion,
-  "com.mohiva" %% "play-silhouette-crypto-jca" % silhouetteVersion,
-  "net.codingwell" %% "scala-guice" % "4.1.0",
-  "com.iheart" %% "ficus" % "1.4.1",
-  "com.adrianhurt" %% "play-bootstrap" % "1.2-P26-B3-RC2",
-  "com.mohiva" %% "play-silhouette-testkit" % silhouetteVersion % "test",
-  // frontend
-  "org.webjars" %% "webjars-play" % "2.6.1",
-  "org.webjars" % "bootstrap" % "3.3.7-1",
-
   guice,
   ehcache,
   filters
 )
 
+libraryDependencies ++= Dependencies.common
 
-//Prevent documentation of API for production bundles
-sources in (Compile, doc) := Seq.empty
-publishArtifact in (Compile, packageDoc) := false
-
-lazy val isWin = System.getProperty("os.name").toUpperCase().contains("WIN")
-val appPath = if (isWin) "\\app\\frontend" else "./app/frontend"
-val webpackBuild = taskKey[Unit]("Webpack build task.")
-
-webpackBuild := {
-  if (isWin) Process("cmd /c npm run build", file(appPath)).run
-  else Process("npm run build", file(appPath)).run
-}
-
-(packageBin in Universal) := ((packageBin in Universal) dependsOn webpackBuild).value
-
-// Webpack server process when running locally and build actions for production bundle
-lazy val frontendDirectory = baseDirectory {_ / appPath}
-playRunHooks += frontendDirectory.map(WebpackServer(_)).value
+enablePlugins(NpmSettings)
 
 routesGenerator := InjectedRoutesGenerator
 RoutesKeys.routesImport -= "controllers.Assets.Asset"

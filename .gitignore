@@ -14,7 +14,7 @@ dist
 /RUNNING_PID
 /.settings
 /bin
-/app/frontend/node_modules
+/app-ui/node_modules
 npm.debug.log
 
 #ruby
