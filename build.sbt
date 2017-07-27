@@ -16,6 +16,8 @@ libraryDependencies ++= Seq(
   filters
 )
 
+resolvers ++= Dependencies.resolvers
+
 libraryDependencies ++= Dependencies.common
 
 enablePlugins(NpmSettings)
