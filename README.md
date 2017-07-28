@@ -1,4 +1,4 @@
-[![Gitter](https://img.shields.io/gitter/room/gitterHQ/gitter.svg)](https://gitter.im/play-silhouette-angular4-seed?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [<img src="https://img.shields.io/travis/epot/play-silhouette-angular4-seed.svg"/>](https://travis-ci.org/epot/play-silhouette-angular4-seed)
+[![Gitter](https://img.shields.io/gitter/room/gitterHQ/gitter.svg)](https://gitter.im/play-silhouette-angular4-seed?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [<img src="https://img.shields.io/travis/epot/play-silhouette-angular-typescript.g8.svg"/>](https://travis-ci.org/epot/play-silhouette-angular4-seed)
 
 # Play Silhouette Angular Typescript sample application
 This is a Play Silhouette Angular starter application with incremental Typescript compilation.
