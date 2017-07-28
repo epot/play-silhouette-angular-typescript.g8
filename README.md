@@ -5,7 +5,7 @@ This is a Play Silhouette Angular starter application with incremental Typescrip
 More information to find in the app README.md.
 
 ## Installation
-Run `sbt new epot/play-angular-typescript.g8` and you'll have a local application.  
+Run `sbt new epot/play-silhouette-angular-typescript.g8` and you'll have a local application.  
 Or you can just clone this repo and move the contents of `src/main/g8` to the root.  
 
 ## Running
