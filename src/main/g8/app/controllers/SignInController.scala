@@ -41,38 +41,46 @@ class SignInController @Inject() (
   extends AbstractController(components) with I18nSupport {
 
   /**
+   * Converts the JSON into a `SignInForm.Data` object.
+   */
+  implicit val dataReads = (
+    (__ \ 'email).read[String] and
+    (__ \ 'password).read[String] and
+    (__ \ 'rememberMe).read[Boolean]
+  )(SignInForm.Data.apply _)
+
+  /**
    * Handles the submitted JSON data.
    *
    * @return The result to display.
    */
   def submit = Action.async(parse.json) { implicit request =>
-    SignInForm.form.bindFromRequest.fold(
-      _ =>
-        Future.successful(BadRequest(Json.obj("message" -> Messages("invalid.credentials")))),
-      data => {
-        credentialsProvider.authenticate(Credentials(data.email, data.password)).flatMap { loginInfo =>
-          userService.retrieve(loginInfo).flatMap {
-            case Some(user) => silhouette.env.authenticatorService.create(loginInfo).map {
-              case authenticator if data.rememberMe =>
-                val c = configuration.underlying
-                authenticator.copy(
-                  expirationDateTime = clock.now + c.as[FiniteDuration]("silhouette.authenticator.rememberMe.authenticatorExpiry"),
-                  idleTimeout = c.getAs[FiniteDuration]("silhouette.authenticator.rememberMe.authenticatorIdleTimeout")
-                )
-              case authenticator => authenticator
-            }.flatMap { authenticator =>
-              silhouette.env.eventBus.publish(LoginEvent(user, request))
-              silhouette.env.authenticatorService.init(authenticator).map { token =>
-                Ok(Json.obj("token" -> token))
-              }
+    request.body.validate[SignInForm.Data].map { data =>
+      credentialsProvider.authenticate(Credentials(data.email, data.password)).flatMap { loginInfo =>
+        userService.retrieve(loginInfo).flatMap {
+          case Some(user) => silhouette.env.authenticatorService.create(loginInfo).map {
+            case authenticator if data.rememberMe =>
+              val c = configuration.underlying
+              authenticator.copy(
+                expirationDateTime = clock.now + c.as[FiniteDuration]("silhouette.authenticator.rememberMe.authenticatorExpiry"),
+                idleTimeout = c.getAs[FiniteDuration]("silhouette.authenticator.rememberMe.authenticatorIdleTimeout")
+              )
+            case authenticator => authenticator
+          }.flatMap { authenticator =>
+            silhouette.env.eventBus.publish(LoginEvent(user, request))
+            silhouette.env.authenticatorService.init(authenticator).map { token =>
+              Ok(Json.obj("token" -> token))
             }
-            case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
           }
-        }.recover {
-          case _: ProviderException =>
-            BadRequest(Json.obj("message" -> Messages("invalid.credentials")))
+          case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
         }
+      }.recover {
+        case _: ProviderException =>
+          Unauthorized(Json.obj("message" -> Messages("invalid.credentials")))
       }
-    )
+    }.recoverTotal {
+      case _ =>
+        Future.successful(Unauthorized(Json.obj("message" -> Messages("invalid.credentials"))))
+    }
   }
 }

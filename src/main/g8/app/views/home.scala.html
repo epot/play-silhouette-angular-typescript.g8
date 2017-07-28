@@ -8,7 +8,7 @@
         <hr class="col-md-12" />
         <h4 class="col-md-8">@Messages("welcome.signed.in")</h4>
         <div class="col-md-4 text-right">
-            <img *ngIf="!user.avatarURL" src="@routes.Assets.at("images/silhouette.png")" height="40px" />
+            <img *ngIf="!user.avatarURL" src="@routes.Assets.versioned("images/silhouette.png")" height="40px" />
             <img *ngIf="user.avatarURL" [src]="user.avatarURL" height="40px" />
         </div>
         <hr class="col-md-12" />

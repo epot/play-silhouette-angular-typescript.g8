@@ -1,24 +1,17 @@
-language: scala
 dist: trusty
-sudo: true
-group: beta
-jdk:
-- oraclejdk8
-scala:
-- 2.12.2
+sudo: false
+language: scala
 cache:
   directories:
-  - $HOME/.ivy2/cache
-  - $HOME/.sbt/boot/
-before_cache:
-- rm -rf $HOME/.ivy2/local
-- rm -rf $HOME/.ivy2/cache/com.typesafe.play/*
-- rm -rf $HOME/.ivy2/cache/scala_*/sbt_*/com.typesafe.play/*
-- find $HOME/.ivy2/cache -name "ivydata-*.properties" -print0 | xargs -n10 -0 rm
-- find $HOME/.sbt -name "*.lock" -delete
-notifications:
-  webhooks:
-    urls:
-    - https://webhooks.gitter.im/e/285d8689fcf57380dca9
-    on_success: always
-    on_failure: always
+  - $HOME/.ivy2
+env:
+  - NODE_VERSION=6
+scala:
+  - 2.12.2
+jdk:
+  - oraclejdk8
+before_script:
+  - cd src/main/g8
+script:
+  - nvm use $NODE_VERSION
+  - sbt stage -DtsCompileMode=stage

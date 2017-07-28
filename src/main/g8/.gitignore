@@ -1,0 +1,24 @@
+logs
+project/project
+project/target
+target
+tmp
+.history
+dist
+/.idea
+/*.iml
+/out
+/.idea_modules
+/.classpath
+/.project
+/RUNNING_PID
+/.settings
+/bin
+/app-ui/node_modules
+npm.debug.log
+
+#ruby
+.bundle
+
+#OS X
+.DS_Store
