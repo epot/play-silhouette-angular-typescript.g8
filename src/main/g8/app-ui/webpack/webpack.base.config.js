@@ -41,6 +41,14 @@ var config = {
             {
                 test: /\.svg$/,
                 use: 'url-loader?limit=10000&mimetype=image/svg+xml'
+            },
+            {
+                test: /\.es6$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: {
+                  presets: ['es2015']
+                }
             }
         ]
     },

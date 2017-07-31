@@ -44,16 +44,18 @@
   },
   "devDependencies": {
     "@types/angular": "1.6.25",
+    "@types/jasmine": "2.5.53",
     "@types/node": "8.0.7",
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "jasmine-core": "2.6.4",
     "ts-loader": "2.2.2",
-    "typescript": "2.4.0",
-    "webpack": "3.3.0",
-    "webpack-dev-server": "2.6.1",
     "tslint": "^4.0.0",
     "tslint-eslint-rules": "3.4.0",
     "tslint-microsoft-contrib": "4.0.0",
-    "@types/jasmine": "2.5.53",
-    "jasmine-core": "2.6.4"
+    "typescript": "2.4.0",
+    "webpack": "3.3.0",
+    "webpack-dev-server": "2.6.1"
   },
   "engines": {
     "node": ">= 5",
