@@ -1,7 +1,5 @@
-Play Silhouette Angular4 Seed Project
+Play Silhouette Angular Typescript Seed Project
 =====================================
-
-This is an ongoing work and needs to be refined. The OAuth2 authentication is using un unsafe workaround (follow updates [here](http://discourse.silhouette.rocks/t/silhouette-and-angular/159/10)). Plenty of cleanup needs to be done as well.
 
 The Play Silhouette Angular Seed project shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be used
 to create a SPA with [Angular](https://angular.io/)/[ng2-ui-auth](https://github.com/ronzeidman/ng2-ui-auth). It's a starting point which can be extended to fit
@@ -9,11 +7,9 @@ your needs. It was migrated from the existing seed with AngularJS: [play-silhoue
 
 ## Dependencies
 
-* Play! Framework 2.6
+* Play! Framework 2.6.2
 * Scala 2.12
-* Silhouette 5.0.0-RC
-* Node
-* Typescript
+* Silhouette 5.0.0-RC3
 * Angular 4.3
 * Webpack
 * RxJS
@@ -28,8 +24,6 @@ your needs. It was migrated from the existing seed with AngularJS: [play-silhoue
 * Publishing Events
 * Avatar service
 * Remember me functionality
-* [Security headers](https://www.playframework.com/documentation/2.6.x/SecurityHeaders)
-* [CSRF Protection](https://www.playframework.com/documentation/2.6.x/ScalaCsrf)
 
 ## Documentation
 
