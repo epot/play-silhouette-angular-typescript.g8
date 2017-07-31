@@ -1,8 +1,5 @@
 @(socialProviders: com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry)(implicit request: RequestHeader, messages: Messages)
 
-@import forms.SignInForm.form
-@import b3.inline.fieldConstructor
-
 <fieldset class="col-md-6 col-md-offset-3" ng-controller="SignInCtrl">
     <legend>@Messages("sign.in.credentials")</legend>
 

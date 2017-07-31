@@ -1,8 +1,5 @@
 @()(implicit request: RequestHeader, messages: Messages)
 
-@import b3.inline.fieldConstructor
-@import forms.SignUpForm.form
-
 <fieldset class="col-md-6 col-md-offset-3" ng-controller="SignUpCtrl">
     <legend >@Messages("sign.up.account")</legend>
     <form class="col-lg-12" [formGroup]="form" (ngSubmit)="signup(form.value)">

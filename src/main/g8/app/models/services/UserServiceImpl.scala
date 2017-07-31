@@ -7,16 +7,14 @@ import com.mohiva.play.silhouette.api.LoginInfo
 import com.mohiva.play.silhouette.impl.providers.CommonSocialProfile
 import models.User
 import models.daos.UserDAO
-import play.api.libs.concurrent.Execution.Implicits._
-
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * Handles actions to users.
  *
  * @param userDAO The user DAO implementation.
  */
-class UserServiceImpl @Inject() (userDAO: UserDAO) extends UserService {
+class UserServiceImpl @Inject() (userDAO: UserDAO, implicit val executionContext: ExecutionContext) extends UserService {
 
   /**
    * Retrieves a user that matches the specified login info.
