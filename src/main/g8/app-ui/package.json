@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git@github.com:wigahluk/play-webpack.git"
   },
-  "author": "Oscar Ponce",
+  "author": "Emmanuel Pot",
   "license": "Apache-2.0",
   "dependencies": {
     "@angular/animations": "4.3.1",
