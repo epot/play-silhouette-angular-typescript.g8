@@ -22,7 +22,7 @@ export class ErrorHandleService {
 
   showSavedMessage() {
     if (this._savedSeverity === '' || this._savedMessage === '') {
-      return
+      return;
     }
 
     if (this._savedSeverity === 'error') {
@@ -45,7 +45,7 @@ export class ErrorHandleService {
 
   showSavedError() {
     if (this._savedError == null) {
-      return
+      return;
     }
 
     this.handleError(this._savedError);
@@ -54,7 +54,7 @@ export class ErrorHandleService {
 
   handleError(err: any) {
       if (typeof err === 'string') {
-          this._toastr.error(err)
+          this._toastr.error(err);
       } else if (err instanceof Response) {
           const res: Response = err;
           if (res.json().message) {

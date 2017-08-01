@@ -6,7 +6,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { AuthService } from 'ng2-ui-auth';
 import { Subscription } from 'rxjs/Subscription';
 
-import { UserService } from '../services/user.service'
+import { UserService } from '../services/user.service';
 import { TokenUser } from '../token-user';
 import { ErrorHandleService } from '../services/error-handle.service';
 
