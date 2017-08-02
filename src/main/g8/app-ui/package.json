@@ -11,10 +11,6 @@
     "build": "webpack -p --config ./webpack/webpack.base.config.js",
     "start": "node ./webpack/webpack.server"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:wigahluk/play-webpack.git"
-  },
   "author": "Emmanuel Pot",
   "license": "Apache-2.0",
   "dependencies": {
