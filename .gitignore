@@ -7,3 +7,4 @@ target
 /RUNNING_PID
 node_modules
 npm-debug.log
+src/main/public/bundles

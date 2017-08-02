@@ -31,10 +31,6 @@ var config = {
                 use: ['style-loader', 'css-loader', 'less-loader']
             },
             {
-                test: /\.ts$/,
-                use: 'ts-loader'
-            },
-            {
                 test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/,
                 use: 'url-loader?limit=100000'
             },
@@ -49,11 +45,23 @@ var config = {
                 query: {
                   presets: ['es2015']
                 }
+            },
+            {
+                test: /\.ts(x?)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                    },
+                    {
+                        loader: 'ts-loader'
+                    }
+                ]
             }
         ]
     },
     resolve: {
-        extensions: ['.ts','.js','.json','.css','.html']
+        extensions: ['.ts','.tsx','.js','.json','.css','.html']
     },
     plugins: [
         new webpack.ContextReplacementPlugin(
