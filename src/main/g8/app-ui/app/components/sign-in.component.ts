@@ -5,12 +5,12 @@ import { AuthService } from 'ng2-ui-auth';
 
 import { FormHelperService } from '../services/form-helper.service';
 import { ErrorHandleService } from '../services/error-handle.service';
-import { UserService } from '../services/user.service'
+import { UserService } from '../services/user.service';
 import { LoginData } from '../login-data';
 
 @Component({
     selector: 'my-login',
-    templateUrl: 'views/signIn.html',
+    templateUrl: 'templates/sign-in.component.html'
 })
 export class SignInComponent implements OnInit {
     form: FormGroup;

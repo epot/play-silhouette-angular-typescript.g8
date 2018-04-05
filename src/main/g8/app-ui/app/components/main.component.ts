@@ -6,7 +6,7 @@ import { TokenUser } from '../token-user';
 
 @Component({
   selector: 'my-main',
-  templateUrl: 'views/home.html'
+  templateUrl: 'templates/main.component.html'
 })
 export class MainComponent implements OnDestroy {
   public user: TokenUser;

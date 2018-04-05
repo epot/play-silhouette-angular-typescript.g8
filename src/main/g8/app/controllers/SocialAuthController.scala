@@ -1,7 +1,6 @@
 package controllers
 
 import javax.inject.Inject
-
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
@@ -10,7 +9,7 @@ import models.services.UserService
 import play.api.Logger
 import play.api.cache.AsyncCacheApi
 import play.api.i18n.{ I18nSupport, Messages }
-import play.api.libs.json.Json
+import play.api.libs.json.{ JsObject, JsValue, Json }
 import play.api.mvc._
 import utils.auth.DefaultEnv
 
@@ -45,7 +44,28 @@ class SocialAuthController @Inject() (
     cacheAuthTokenForOauth1(r) { implicit request =>
       (socialProviderRegistry.get[SocialProvider](provider) match {
         case Some(p: SocialProvider with CommonSocialProfileBuilder) =>
-          p.authenticate().flatMap {
+          // build a new JSON body as our javascript dependency put the data somewhere specific
+          val jsonBody: Option[JsValue] = request.body.asJson
+          val authorizationData = jsonBody.map { body =>
+            body.\("authorizationData").as[JsObject]
+          }.get
+          val oauthData = jsonBody.map { body =>
+            body.\("oauthData").as[JsObject]
+          }
+          val userData = jsonBody.map { body =>
+            body.\("userData").as[JsObject]
+          }
+          val merge = oauthData match {
+            case Some(arg2) =>
+              val merge = userData match {
+                case Some(arg3) =>
+                  arg2 ++ arg3
+                case _ => arg2
+              }
+              merge ++ authorizationData
+            case _ => authorizationData
+          }
+          p.authenticate()(request.withBody(AnyContentAsJson(merge))).flatMap {
             case Left(result) => Future.successful(result)
             case Right(authInfo) => for {
               profile <- p.retrieveProfile(authInfo)

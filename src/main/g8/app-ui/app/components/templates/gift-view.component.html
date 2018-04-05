@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1></h1>
+    </div>
+    <div class="row">
+      <app-left-menu></app-left-menu>
+      <div class="col-md-10">
+        <div class="container">
+          <hr/>
+          <table *ngIf="gift" class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <h5 class="text-left" i18n>Description:</h5>
+                  <h6 class="text-left">{{gift.name}}</h6>
+                </td>
+              </tr>
+              <tr>
+                <td *ngIf="gift.to.id !== user.id">
+                  <h5 class="text-left" i18n>Status:</h5>
+                  <h6 class="text-left">{{gift.status}}</h6>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5 class="text-left" i18n>Creator:</h5>
+                  <h6 class="text-left">{{gift.creator.userName}}</h6>
+                </td>
+              </tr>
+              <tr>
+                <td *ngIf="gift.to">
+                  <h5 class="text-left" i18n>For:</h5>
+                  <h6 class="text-left">{{gift.to.userName}}</h6>
+                </td>
+              </tr>
+              <tr *ngIf="gift.from">
+                <td>
+                  <h5 class="text-left" i18n>Offered by:</h5>
+                  <h6 class="text-left">{{gift.from.userName}}</h6>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th i18n>Who</th>
+                <th i18n>When</th>
+                <th i18n>What</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let h of history">
+                <td>{{h.user.userName}}</td>
+                <td>{{h.creationDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                <td>{{h.content}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1></h1>
+    </div>
+    <div class="row">
+      <app-left-menu></app-left-menu>
+      <div class="col-md-10">
+        <div class="container">
+          <hr/>
+          <form *ngIf="form" class="col-lg-12" [formGroup]="form" (ngSubmit)="submit(form.value)">
+              <div class="form-group"
+                  [ngClass]="{'has-error':fh.hasError(form, 'name')}"
+              >
+                  <label for="name" i18n>Gift's description</label>
+                  <div class="alert alert-danger" *ngIf="fh.hasError(form, 'name')" i18n>Field required</div>
+                  <input class="form-control"
+                          id="name"
+                          name="name"
+                          [formControl]="form.controls['name']"
+                  >
+              </div>
+              <div class="form-group">
+                  <label for="to" i18n>Intended for:</label>  
+                  <select class="form-control" [(ngModel)]="toId" [ngModelOptions]="{standalone: true}" required>
+                      <option *ngFor="let p of participants" [ngValue]="p.user.id" i18n>{{p.user.userName}}</option>
+                  </select>
+              </div>
+              <div class="form-group" *ngIf="urls.length !== 0">
+                <label for="to" i18n>Links:</label>  
+                <div class="input input-group" *ngFor="let url of urls; let i = index; trackBy:trackByFn">
+                  <input type="text" class="form-control" [(ngModel)]="urls[i]" [ngModelOptions]="{standalone: true}" value="{{urls[i]}}"> 
+                  <span class="input-group-btn">
+                    <button class="btn btn-danger" (click)="removeLink(i)" type="button"><i class="fa fa-remove"></i></button>
+                  </span>
+                </div>
+              </div>
+              <br/>
+              <div class="clearfix">
+                <div class="input">
+                  <a class="btn btn-success" (click)="addLink()" i18n>Add a link</a>
+                </div>
+              </div>
+              <hr/>
+              <div class="actions">
+                <button type="submit" class="btn btn-primary" [disabled]="!form.valid"><span i18n>Submit</span></button>
+                <a [routerLink]="['/events', eventid]">
+                  <button class="btn btn-danger"><span i18n>Cancel</span></button>
+                </a>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

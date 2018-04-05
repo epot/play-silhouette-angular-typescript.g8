@@ -25,6 +25,8 @@ enablePlugins(NpmSettings)
 routesGenerator := InjectedRoutesGenerator
 RoutesKeys.routesImport -= "controllers.Assets.Asset"
 
+unmanagedResourceDirectories in Assets += baseDirectory.value / "app-ui" / "app" / "components" / "templates"
+
 scalacOptions ++= Seq(
   "-deprecation", // Emit warning and location for usages of deprecated APIs.
   "-feature", // Emit warning and location for usages of features that should be imported explicitly.

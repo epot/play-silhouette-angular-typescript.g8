@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="content">
+    <div class="page-header">
+      <h1></h1>
+    </div>
+    <div class="row">
+      <app-left-menu></app-left-menu>
+      <div class="col-md-10">
+        <div class="container">
+          <hr/>
+          <form class="col-lg-12" [formGroup]="form" (ngSubmit)="submit(form.value)">
+            <div class="form-group"
+                  [ngClass]="{'has-error':fh.hasError(form, 'name')}"
+            >
+                <label for="name" i18n>Name:</label>
+                <div class="alert alert-danger" *ngIf="fh.hasError(form, 'name')" i18n>Field required</div>
+                <input class="form-control"
+                        id="name"
+                        name="name"
+                        [formControl]="form.controls['name']"
+                >
+            </div>
+            <div class="form-group"
+            [ngClass]="{'has-error':fh.hasError(form, 'date')}"
+            >
+                <label for="date" i18n>Date:</label>
+                <div class="alert alert-danger" *ngIf="fh.hasError(form, 'date')" i18n>Field required</div>
+                <p-calendar formControlName="date" showIcon="true"></p-calendar>
+            </div>
+            <div class="form-group">
+                <label for="type" i18n>Type:</label>  
+                <select class="form-control" id="type" formControlName="type" required>
+                    <option [value]="1" i18n>Birthday</option>
+                    <option [value]="2" i18n>Christmas</option>
+                </select>
+            </div>
+            <div class="actions">
+              <button type="submit" class="btn btn-primary"[disabled]="!form.valid"><span i18n>Create</span></button>
+              <a routerLink="/">
+                <button class="btn btn-danger"><span i18n>Cancel</span></button>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

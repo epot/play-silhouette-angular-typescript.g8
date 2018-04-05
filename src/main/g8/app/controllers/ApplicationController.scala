@@ -62,7 +62,7 @@ class ApplicationController @Inject() (
       val contentType = response.headers.get("Content-Type").flatMap(_.headOption).getOrElse("application/octet-stream")
       val headers = response.headers
         .toSeq.filter(p => List("Content-Type", "Content-Length").indexOf(p._1) < 0).map(p => (p._1, p._2.mkString))
-      Ok(response.body).withHeaders(headers: _*).as(contentType)
+      Ok(response.bodyAsBytes).withHeaders(headers: _*).as(contentType)
     }
   }
   else {

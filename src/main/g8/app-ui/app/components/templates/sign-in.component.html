@@ -1,0 +1,46 @@
+<div class="container">
+    <fieldset class="col">
+        <legend i18n>Sign in with your credentials</legend>
+        <form class="col" [formGroup]="form" (ngSubmit)="login(form.value)">
+            <div class="form-group"
+                [ngClass]="{'has-error':fh.hasError(form, 'email')}"
+            >
+                <label for="email" i18n>Email</label>
+                <div class="alert alert-danger" *ngIf="fh.hasError(form, 'email')" i18n>Valid email required</div>
+                <input class="form-control"
+                        id="email"
+                        name="email"
+                        [formControl]="form.controls['email']"
+                >
+            </div>
+            <div class="form-group"
+                [ngClass]="{'has-error':fh.hasError(form, 'password')}"
+            >
+                <label for="pwd" i18n>Password</label>
+                <div class="alert alert-danger" *ngIf="fh.hasError(form, 'password')" i18n>Password required</div>
+                <input type="password"
+                        class="form-control"
+                        id="pwd"
+                        name="password"
+                        [formControl]="form.controls['password']"
+                >
+            </div>
+
+            <div class="form-group">
+                <button ng-disabled="form.$invalid" id="submit" value="submit" class="btn btn-lg btn-primary btn-block" i18n>Sign in</button>
+                <a class="btn btn-warning"  routerLink="/forgotPassword" i18n-title title="Forgot your password ?" i18n>Forgot your password ?</a>
+            </div>
+            
+            <div>
+                <p class="not-a-member">Not a member? <a routerLink="/signUp">Sign up now</a></p>
+            </div>
+
+            <div class="social-providers">
+                <p i18n>Or use your existing account on one of the following services to sign in:</p>
+                <div>
+                    <a (click)="authenticate('google')" class="provider google" i18n-title title="Sign in with Google"><img src="/assets/images/providers/google.png" width="64px" height="64px" alt="@Messages(p.id)"></a>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>

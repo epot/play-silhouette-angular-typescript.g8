@@ -1,6 +1,6 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { Response } from '@angular/http';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class ErrorHandleService {
@@ -8,11 +8,7 @@ export class ErrorHandleService {
   private _savedSeverity: string;
   private _savedMessage: string;
 
-  constructor(private _toastr: ToastsManager) {
-  }
-
-  setRootViewContainerRef(vcr: ViewContainerRef) {
-    this._toastr.setRootViewContainerRef(vcr);
+  constructor(private _toastr: ToastrService) {
   }
 
   saveMessage(severity: string, message: string) {
@@ -55,15 +51,17 @@ export class ErrorHandleService {
   handleError(err: any) {
       if (typeof err === 'string') {
           this._toastr.error(err);
-      } else if (err instanceof Response) {
-          const res: Response = err;
-          if (res.json().message) {
-              this._toastr.error(res.json().message, res.statusText);
-          } else {
-              this._toastr.error(res.statusText);
-          }
-      } else if (err && err.message) {
-          this._toastr.error(err.message);
+      } else if (err instanceof Response) { // for ng2-ui-auth errors
+        const res: Response = err;
+        if (res.json().message) {
+            this._toastr.error(res.json().message, res.statusText);
+        } else {
+            this._toastr.error(res.statusText);
+        }
+      } else if (err && err['message']) {
+          this._toastr.error(err['message']);
+      } else if (err && err['errors']) {
+          this._toastr.error(err['errors'].join(', '));
       } else if (err) {
           this._toastr.error(err.toString());
       } else {

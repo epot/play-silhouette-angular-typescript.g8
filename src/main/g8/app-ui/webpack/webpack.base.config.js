@@ -24,19 +24,26 @@ var config = {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader','css-loader']
+                use: ['style-loader','css-loader', 'postcss-loader']
             },
             {
                 test: /\.less$/,
                 use: ['style-loader', 'css-loader', 'less-loader']
             },
             {
-                test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/,
-                use: 'url-loader?limit=100000'
+                test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: 'url-loader?limit=10000',  
             },
             {
-                test: /\.svg$/,
-                use: 'url-loader?limit=10000&mimetype=image/svg+xml'
+                test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+                use: 'file-loader',
+              },
+              {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use: [
+                  'file-loader?name=images/[name].[ext]',
+                  'image-webpack-loader?bypassOnDebug'
+                ]  
             },
             {
                 test: /\.es6$/,
@@ -45,6 +52,15 @@ var config = {
                 query: {
                   presets: ['es2015']
                 }
+            },
+            {
+                test: /\.xlf/,
+                loader: 'raw-loader'
+            },
+            {
+                test: /\.html$/,
+                exclude: /node_modules/,
+                loader: 'raw-loader'
             },
             {
                 test: /\.ts(x?)$/,
@@ -57,7 +73,15 @@ var config = {
                         loader: 'ts-loader'
                     }
                 ]
-            }
+            },
+            // font-awesome
+            {
+                test: /font-awesome\.config\.js/,
+                use: [
+                { loader: 'style-loader' },
+                { loader: 'font-awesome-loader' }
+                ]
+            },
         ]
     },
     resolve: {

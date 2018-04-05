@@ -9,7 +9,7 @@ import { UserService } from '../services/user.service'
 
 @Component({
     selector: 'my-signup',
-    templateUrl: 'views/signUp.html',
+    templateUrl: 'templates/sign-up.component.html'
 })
 export class SignUpComponent implements OnInit {
     form: FormGroup;
@@ -28,7 +28,8 @@ export class SignUpComponent implements OnInit {
             'lastName': new FormControl('', [Validators.required]),
             'email': new FormControl('', [Validators.required, Validators.email]),
             'password': new FormControl('', [Validators.required]),
-        })
+            'avatarUrl': new FormControl('')
+        });
     }
 
     signup(signupData: any) {
@@ -36,12 +37,13 @@ export class SignUpComponent implements OnInit {
             firstName: signupData['firstName'],
             lastName: signupData['lastName'],
             email: signupData['email'],
-            password: signupData['password']
+            password: signupData['password'],
+            avatarurl: signupData['avatarUrl']
         })
             .subscribe({
                 next: (response) => {
-                    console.log(response.json());
-                    this.auth.setToken(response.json().token);
+                    console.log(response);
+                    this.auth.setToken(response.token);
                     this.userService.renewUser();
                 },
                 error: (err: any) => this.eh.handleError(err),
