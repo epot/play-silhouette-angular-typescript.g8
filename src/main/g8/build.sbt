@@ -2,11 +2,11 @@ import play.sbt.routes.RoutesKeys
 import com.typesafe.sbt.SbtScalariform._
 import scalariform.formatter.preferences._
 
-name := "play-silhouette-angular4-seed"
+name := "play-silhouette-angular-typescript-seed"
 
 version := "1.0.0"
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.5"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
