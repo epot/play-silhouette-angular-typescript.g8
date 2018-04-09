@@ -5,6 +5,7 @@ object Dependencies {
   object Version {
     val silhouette = "5.0.3"
     val playVersion = play.core.PlayVersion.current
+    val playMailerVersion = "6.0.1"
   }
 
   val resolvers = Seq(
@@ -18,9 +19,11 @@ object Dependencies {
     "com.mohiva" %% "play-silhouette-crypto-jca" % Version.silhouette,
     "com.mohiva" %% "play-silhouette-testkit" % Version.silhouette,
 
+    "com.typesafe.play" %% "play-mailer" % Version.playMailerVersion,
+    "com.typesafe.play" %% "play-mailer-guice" % Version.playMailerVersion,
+    "com.enragedginger" %% "akka-quartz-scheduler" % "1.6.1-akka-2.5.x",
+
     "com.iheart" %% "ficus" % "1.4.3",
-    "net.codingwell" %% "scala-guice" % "4.2.0",
-    "com.adrianhurt" %% "play-bootstrap" % "1.2-P26-B3-RC2",
-    "org.webjars" %% "webjars-play" % "2.6.3"
+    "net.codingwell" %% "scala-guice" % "4.2.0"
   )
 }

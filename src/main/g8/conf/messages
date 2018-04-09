@@ -1,4 +1,14 @@
+
+# Reset Password
+email.from = Rene Coty <rene@coty.com>
+email.reset.password.subject = Reset password
+email.reset.password.hello = Hello {0},
+email.reset.password.html.text = Please follow <a href="{0}">this link</a> to reset your password.
+email.reset.password.txt.text = Please follow the link to reset your password: {0}
+
+# UI
 loading = Loading...
+invalid.reset.link = This link is no longer valid, please ask for a new one
 invalid.credentials = Incorrect login/password
 could.not.authenticate = Failed to authenticate, please retry later
 oauth2.wait = Authentication done, please wait...

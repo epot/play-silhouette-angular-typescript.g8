@@ -16,10 +16,13 @@ import { HeaderComponent } from './components/header.component';
 import { MainComponent } from './components/main.component';
 import { SignInComponent } from './components/sign-in.component';
 import { SignUpComponent } from './components/sign-up.component';
-import { AuthGuardService } from './services/auth-guard.service'
+import { ForgotPasswordComponent } from './components/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password.component';
+import { AuthGuardService } from './services/auth-guard.service';
 import { ErrorHandleService } from './services/error-handle.service';
 import { FormHelperService } from './services/form-helper.service';
 import { UserService } from './services/user.service';
+import { PasswordService } from './services/password.service';
 
 export const GOOGLE_CLIENT_ID = '445581959814-s926r5damu6oeqcug10lk0vmc7vd0qva.apps.googleusercontent.com';
 
@@ -56,6 +59,8 @@ export const GOOGLE_CLIENT_ID = '445581959814-s926r5damu6oeqcug10lk0vmc7vd0qva.a
     SignInComponent,
     HeaderComponent,
     SignUpComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent,
   ],
   providers: [
     ErrorHandleService,
@@ -65,6 +70,7 @@ export const GOOGLE_CLIENT_ID = '445581959814-s926r5damu6oeqcug10lk0vmc7vd0qva.a
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     AuthGuardService,
     UserService,
+    PasswordService,
   ],
   bootstrap: [AppComponent]
 })

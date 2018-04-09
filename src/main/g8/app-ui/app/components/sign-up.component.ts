@@ -42,7 +42,6 @@ export class SignUpComponent implements OnInit {
         })
             .subscribe({
                 next: (response) => {
-                    console.log(response);
                     this.auth.setToken(response.token);
                     this.userService.renewUser();
                 },
