@@ -1,16 +1,16 @@
-Play Silhouette Angular Typescript Seed Project
+Play Silhouette Angular Typescript Giter8 Template
 =====================================
 
-The Play Silhouette Angular Seed project shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be used
+The Play Silhouette Angular Giter8 Template shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be used
 to create a SPA with [Angular](https://angular.io/)/[ng2-ui-auth](https://github.com/ronzeidman/ng2-ui-auth). It's a starting point which can be extended to fit
 your needs. It was migrated from the existing seed with AngularJS: [play-silhouette-angular-seed](https://github.com/mohiva/play-silhouette-angular-seed).
 
 ## Dependencies
 
-* Play! Framework 2.6.2
+* Play! Framework 2.6
 * Scala 2.12
-* Silhouette 5.0.0-RC3
-* Angular 4.3
+* Silhouette 5
+* Angular 5
 * Webpack
 * RxJS
 
@@ -28,8 +28,7 @@ your needs. It was migrated from the existing seed with AngularJS: [play-silhoue
 ## Documentation
 
 Consult the [Silhouette documentation](http://silhouette.mohiva.com/docs) for more information. If you need help with the integration of Silhouette into your project, don't hesitate and ask questions in our [mailing list](https://groups.google.com/forum/#!forum/play-silhouette) or on [Stack Overflow](http://stackoverflow.com/questions/tagged/playframework).
-
-More to come soon.
+For specific issues or questions related to this template, please do not hesitate to open issues on github.
 
 # License
 

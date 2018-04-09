@@ -11,3 +11,7 @@ Or you can just clone this repo and move the contents of `src/main/g8` to the ro
 
 ## Running
 The project code and the readme can be found in [`src/main/g8`](src/main/g8).
+
+## Test it live
+This sample is deployed with Heroku here:
+https://play-silhouette-angular-ts.herokuapp.com/
