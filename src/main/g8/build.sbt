@@ -2,7 +2,7 @@ import play.sbt.routes.RoutesKeys
 import com.typesafe.sbt.SbtScalariform._
 import scalariform.formatter.preferences._
 
-name := "play-silhouette-angular-typescript-seed"
+name := "play-silhouette-angular-typescript"
 
 version := "1.0.0"
 

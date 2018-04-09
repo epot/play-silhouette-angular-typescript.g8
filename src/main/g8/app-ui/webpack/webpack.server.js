@@ -4,7 +4,7 @@
 
 var webpack = require('webpack');
 var webpackDevServer = require('webpack-dev-server');
-var webpackConfig = require('./webpack.config.js');
+var webpackConfig = require('./webpack.config.dev.js');
 
 //noinspection JSUnresolvedVariable
 var webpackPath = __dirname;

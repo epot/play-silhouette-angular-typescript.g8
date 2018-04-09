@@ -43,7 +43,7 @@ export const GOOGLE_CLIENT_ID = '445581959814-s926r5damu6oeqcug10lk0vmc7vd0qva.a
       storageType: 'cookie' as 'cookie',
       providers: {
           google: {
-              clientId: GOOGLE_CLIENT_ID,
+              clientId: process.env.GOOGLE_CLIENT_ID,
               url: '/authenticate/google',
               redirectUri: process.env.REDIRECTURI // passed by the webpack environment specific config files
           }

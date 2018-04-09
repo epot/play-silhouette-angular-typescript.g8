@@ -14,5 +14,11 @@ exports.plugins = [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
         'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    })
+    }),
+    new webpack.DefinePlugin({
+        'process.env': {
+          'REDIRECTURI': JSON.stringify('http://localhost:9000/oauth2'),
+          'GOOGLE_CLIENT_ID': JSON.stringify('445581959814-s926r5damu6oeqcug10lk0vmc7vd0qva.apps.googleusercontent.com')
+        }
+      })
 ];

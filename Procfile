@@ -1,0 +1,1 @@
+web: src/main/g8/target/universal/stage/bin/play-silhouette-angular-typescript -Dhttp.port=${PORT} -Dplay.http.secret.key=${APPLICATION_SECRET} -Dsilhouette.authenticator.sharedSecret=${AUTHENTICATOR_SHAREDSECRET} -Dconfig.resource=${PLAY_CONF_FILE}
