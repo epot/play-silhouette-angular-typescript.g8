@@ -10,6 +10,7 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import utils.auth.DefaultEnv
 import play.api.libs.ws._
+import java.io.File
 
 import scala.concurrent.{ ExecutionContext, Future }
 
@@ -24,7 +25,6 @@ class ApplicationController @Inject() (
   ws: WSClient,
   assets: Assets,
   components: ControllerComponents,
-  socialProviderRegistry: SocialProviderRegistry,
   environment: Environment,
   silhouette: Silhouette[DefaultEnv],
   implicit val executionContext: ExecutionContext)
@@ -57,6 +57,10 @@ class ApplicationController @Inject() (
     Future.successful(Ok(views.html.index()))
   }
 
+  def oauth2 = silhouette.UnsecuredAction.async { implicit request: Request[AnyContent] =>
+    Future.successful(Ok(views.html.oauth2()))
+  }
+
   def bundle(file: String): Action[AnyContent] = if (environment.mode == Mode.Dev) Action.async {
     ws.url(s"http://localhost:8080/bundles/$file").get().map { response =>
       val contentType = response.headers.get("Content-Type").flatMap(_.headOption).getOrElse("application/octet-stream")
@@ -66,22 +70,6 @@ class ApplicationController @Inject() (
     }
   }
   else {
-    assets.at("public/bundles", file)
-  }
-
-  /**
-   * Provides the desired template.
-   *
-   * @param template The template to provide.
-   * @return The template.
-   */
-  def view(template: String) = silhouette.UserAwareAction { implicit request =>
-    template match {
-      case "home" => Ok(views.html.home())
-      case "signUp" => Ok(views.html.signUp())
-      case "signIn" => Ok(views.html.signIn(socialProviderRegistry))
-      case "navigation" => Ok(views.html.navigation())
-      case _ => NotFound
-    }
+    assets.at("/public/bundles", file)
   }
 }
