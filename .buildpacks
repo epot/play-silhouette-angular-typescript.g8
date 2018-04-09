@@ -1,2 +1,0 @@
-src/main/g8/app-ui=https://github.com/heroku/heroku-buildpack-nodejs
-src/main/g8=https://github.com/heroku/heroku-buildpack-scala

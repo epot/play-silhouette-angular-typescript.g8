@@ -1,0 +1,18 @@
+{
+  "name": "play-silhouette-angular-typescript",
+  "version": "1.0.0",
+  "description": "Play Silhouette Angular Typescript",
+  "private": true,
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "postinstall": "cd app-ui && npm install"
+  },
+  "author": "Emmanuel Pot",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": "8.9.0",
+    "npm": ">= 3"
+  }
+}
