@@ -34,6 +34,12 @@ export class ForgotPasswordComponent implements OnInit {
             email: signupData['email'],
         }).then(response => {
             this.router.navigateByUrl('/');
+            this.eh.saveMessage(
+                'success',
+                'We have sent you an email with further instructions to reset your password, on condition that the address \
+                was found in our system.If you do not receive an email within the next 5 minutes, then please recheck your \
+                entered email address and try it again.'
+            );
         }
         ).catch(err => {
             this.eh.handleError(err);

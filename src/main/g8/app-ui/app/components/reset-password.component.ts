@@ -37,6 +37,10 @@ export class ResetPasswordComponent implements OnInit {
         password: signupData['password'],
     }).then(response => {
         this.router.navigateByUrl('/');
+        this.eh.saveMessage(
+          'success',
+          'We have reset your password. You can now sign in with your credentials.'
+      );
     }
     ).catch(err => {
         this.eh.handleError('Your link is not valid anymore, please get a new one!');
