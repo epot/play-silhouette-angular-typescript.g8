@@ -15,6 +15,7 @@ dist
 /.settings
 /bin
 /app-ui/node_modules
+/public/bundles
 npm.debug.log
 
 #ruby

@@ -2,7 +2,7 @@
 var webpack = require('webpack');
 var path = require('path');
 console.log(__dirname);
-var buildPath = path.resolve(__dirname, '../../../public/bundles/');
+var buildPath = path.resolve(__dirname, '../../public/bundles/');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 /**
