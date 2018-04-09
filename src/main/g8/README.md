@@ -30,6 +30,10 @@ your needs. It was migrated from the existing seed with AngularJS: [play-silhoue
 Consult the [Silhouette documentation](http://silhouette.mohiva.com/docs) for more information. If you need help with the integration of Silhouette into your project, don't hesitate and ask questions in our [mailing list](https://groups.google.com/forum/#!forum/play-silhouette) or on [Stack Overflow](http://stackoverflow.com/questions/tagged/playframework).
 For specific issues or questions related to this template, please do not hesitate to open issues on github.
 
+## Test it live
+This sample is deployed with Heroku here:
+https://play-silhouette-angular-ts.herokuapp.com/
+
 # License
 
 The code is licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0).
