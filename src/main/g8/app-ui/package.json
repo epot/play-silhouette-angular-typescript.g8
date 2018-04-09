@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "test",
-    "build": "webpack -p --config ./webpack/webpack.base.config.prod.js",
+    "build": "webpack -p --config ./webpack/webpack.config.prod.js",
     "start": "node ./webpack/webpack.server"
   },
   "author": "Emmanuel Pot",
