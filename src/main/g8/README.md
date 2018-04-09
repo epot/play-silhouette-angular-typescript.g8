@@ -18,12 +18,12 @@ your needs. It was migrated from the existing seed with AngularJS: [play-silhoue
 
 * Sign Up
 * Sign In (Credentials)
+* Password forgotten (Credentials)
 * JWT authentication
 * Social Auth (Facebook, Google+, VK, Twitter, Xing)
 * Dependency Injection with Guice
 * Publishing Events
 * Avatar service
-* Remember me functionality
 
 ## Documentation
 
