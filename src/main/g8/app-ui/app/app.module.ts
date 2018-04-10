@@ -24,8 +24,6 @@ import { FormHelperService } from './services/form-helper.service';
 import { UserService } from './services/user.service';
 import { PasswordService } from './services/password.service';
 
-export const GOOGLE_CLIENT_ID = '445581959814-s926r5damu6oeqcug10lk0vmc7vd0qva.apps.googleusercontent.com';
-
 @NgModule({
   imports: [
     BrowserModule,
