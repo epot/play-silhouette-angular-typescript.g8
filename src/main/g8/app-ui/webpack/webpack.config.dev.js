@@ -17,9 +17,10 @@ exports.plugins = [
     }),
     new webpack.DefinePlugin({
         'process.env': {
-          'REDIRECTURI': JSON.stringify('http://localhost:9000/oauth2'),
+            'REDIRECTURI': JSON.stringify('http://localhost:9000/oauth2'),
             'GOOGLE_CLIENT_ID': JSON.stringify('445581959814-s926r5damu6oeqcug10lk0vmc7vd0qva.apps.googleusercontent.com'),
             'FACEBOOK_CLIENT_ID': JSON.stringify('157726608232328'),
+            'TWITTER_CONSUMER_KEY': JSON.stringify('dFVnpeosDY4zZ0PccZYp5To50'),
         }
       })
 ];

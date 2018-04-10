@@ -52,7 +52,12 @@ import { PasswordService } from './services/password.service';
             clientId: process.env.FACEBOOK_CLIENT_ID,
             url: '/authenticate/facebook',
             redirectUri: process.env.REDIRECTURI // passed by the webpack environment specific config files
-        }
+          },
+          twitter: {
+            clientId: process.env.TWITTER_CONSUMER_KEY,
+            url: '/authenticate/twitter',
+            redirectUri: process.env.REDIRECTURI // passed by the webpack environment specific config files
+          }
       }
     }),
   ],

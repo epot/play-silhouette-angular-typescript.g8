@@ -1,5 +1,6 @@
 package controllers
 
+import akka.util.ByteString
 import javax.inject.Inject
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
@@ -8,11 +9,14 @@ import com.mohiva.play.silhouette.impl.providers._
 import models.services.UserService
 import play.api.Logger
 import play.api.cache.AsyncCacheApi
+import play.api.http.HttpEntity
 import play.api.i18n.{ I18nSupport, Messages }
-import play.api.libs.json.{ JsObject, JsValue, Json }
+import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc._
+import play.shaded.ahc.io.netty.handler.codec.http.QueryStringDecoder
 import utils.auth.DefaultEnv
 
+import scala.collection.JavaConverters._
 import scala.concurrent.{ ExecutionContext, Future }
 import scala.concurrent.duration._
 
@@ -34,6 +38,21 @@ class SocialAuthController @Inject() (
   cache: AsyncCacheApi)(implicit ec: ExecutionContext)
   extends AbstractController(components) with I18nSupport {
 
+  def getAuthenticationPayload(maybeBody: Option[JsValue]): JsValue = {
+    maybeBody match {
+      case Some(body) =>
+        body.\("oauthData").asOpt[JsObject] match {
+          case Some(data) =>
+            // this request is coming from a successful flow on ng2-ui-auth, let's take this part only
+            data
+          case None =>
+            body
+        }
+      case _ =>
+        JsNull
+    }
+  }
+
   /**
    * Authenticates a user against a social provider.
    *
@@ -45,28 +64,25 @@ class SocialAuthController @Inject() (
       (socialProviderRegistry.get[SocialProvider](provider) match {
         case Some(p: SocialProvider with CommonSocialProfileBuilder) =>
           // build a new JSON body as our javascript dependency put the data somewhere specific
-          val jsonBody: Option[JsValue] = request.body.asJson
-          val authorizationData = jsonBody.map { body =>
-            body.\("authorizationData").as[JsObject]
-          }.get
-          val oauthData = jsonBody.map { body =>
-            body.\("oauthData").as[JsObject]
-          }
-          val userData = jsonBody.map { body =>
-            body.\("userData").as[JsObject]
-          }
-          val merge = oauthData match {
-            case Some(arg2) =>
-              val merge = userData match {
-                case Some(arg3) =>
-                  arg2 ++ arg3
-                case _ => arg2
+          p.authenticate()(request.withBody(AnyContentAsJson(getAuthenticationPayload(request.body.asJson)))).flatMap {
+            case Left(result) =>
+              // ng2-ui-auth client does not expect a redirect, but rather a
+              // HTTP 200 with a json payload
+              val updatedResult = result.header.status match {
+                case SEE_OTHER if result.header.headers.get(LOCATION).isDefined =>
+                  val url = new java.net.URI(result.header.headers.get(LOCATION).get)
+                  val scalaParams = new QueryStringDecoder(url).parameters().asScala.map {
+                    case (k, v) =>
+                      k -> v.asScala
+                  }
+                  result.copy(
+                    header = result.header.copy(status = OK),
+                    body = HttpEntity.Strict(ByteString(Json.toJson(scalaParams).toString), Some("application/json"))
+                  )
+                case _ =>
+                  result
               }
-              merge ++ authorizationData
-            case _ => authorizationData
-          }
-          p.authenticate()(request.withBody(AnyContentAsJson(merge))).flatMap {
-            case Left(result) => Future.successful(result)
+              Future.successful(updatedResult)
             case Right(authInfo) => for {
               profile <- p.retrieveProfile(authInfo)
               user <- userService.save(profile)

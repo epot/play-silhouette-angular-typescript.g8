@@ -3,14 +3,12 @@ package controllers
 import javax.inject.Inject
 
 import com.mohiva.play.silhouette.api.{ LogoutEvent, Silhouette }
-import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import play.api.{ Environment, Mode }
 import play.api.i18n.I18nSupport
 import play.api.libs.json.Json
 import play.api.mvc._
 import utils.auth.DefaultEnv
 import play.api.libs.ws._
-import java.io.File
 
 import scala.concurrent.{ ExecutionContext, Future }
 
