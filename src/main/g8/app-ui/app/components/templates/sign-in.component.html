@@ -39,6 +39,9 @@
                 <p i18n>Or use your existing account on one of the following services to sign in:</p>
                 <div>
                     <a (click)="authenticate('google')" class="provider google" i18n-title title="Sign in with Google"><img src="/assets/images/providers/google.png" width="64px" height="64px" alt="@Messages(p.id)"></a>
+                    <a (click)="authenticate('facebook')" class="provider facebook" i18n-title title="Sign in with Facebook"><img src="/assets/images/providers/facebook.png" width="64px" height="64px" alt="@Messages(p.id)"></a>
+                    <a (click)="authenticate('twitter')" class="provider twitter" i18n-title title="Sign in with Twitter"><img src="/assets/images/providers/twitter.png" width="64px" height="64px" alt="@Messages(p.id)"></a>
+                    <a (click)="authenticate('yahoo')" class="provider yahoo" i18n-title title="Sign in with Yahoo"><img src="/assets/images/providers/yahoo.png" width="64px" height="64px" alt="@Messages(p.id)"></a>
                 </div>
             </div>
         </form>
