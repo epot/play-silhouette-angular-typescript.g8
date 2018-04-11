@@ -13,7 +13,10 @@
             <ul class="navbar-nav ml-auto" *ngIf="isAuthenticated()">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{user.firstName}}
+                            <ng-container *ngIf="user.firstName;else other_content">
+                                    {{user.firstName}}
+                            </ng-container>
+                            <ng-template #other_content>{{user.fullName}}</ng-template>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" routerLink="/profile" i18n>Profile</a>

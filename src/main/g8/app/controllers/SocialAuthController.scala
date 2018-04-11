@@ -63,11 +63,11 @@ class SocialAuthController @Inject() (
     cacheAuthTokenForOauth1(r) { implicit request =>
       (socialProviderRegistry.get[SocialProvider](provider) match {
         case Some(p: SocialProvider with CommonSocialProfileBuilder) =>
-          // build a new JSON body as our javascript dependency put the data somewhere specific
+          // build a new JSON body as our ng2-ui-auth client put the data somewhere specific
           p.authenticate()(request.withBody(AnyContentAsJson(getAuthenticationPayload(request.body.asJson)))).flatMap {
             case Left(result) =>
               // ng2-ui-auth client does not expect a redirect, but rather a
-              // HTTP 200 with a json payload
+              // HTTP 200 with a json payload in case of oauth1 flow
               val updatedResult = result.header.status match {
                 case SEE_OTHER if result.header.headers.get(LOCATION).isDefined =>
                   val url = new java.net.URI(result.header.headers.get(LOCATION).get)

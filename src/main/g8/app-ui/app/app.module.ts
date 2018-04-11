@@ -55,8 +55,7 @@ import { PasswordService } from './services/password.service';
           },
           twitter: {
             clientId: process.env.TWITTER_CONSUMER_KEY,
-            url: '/authenticate/twitter',
-            redirectUri: process.env.REDIRECTURI // passed by the webpack environment specific config files
+            url: '/authenticate/twitter'
           }
       }
     }),
