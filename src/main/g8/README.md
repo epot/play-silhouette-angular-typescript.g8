@@ -28,6 +28,8 @@ your needs. It was migrated from the existing seed with AngularJS: [play-silhoue
 
 ## Getting started
 
+Install sbt and node.js first.
+
 In order to play with this sample locally you need to:
 
  * go to the app-ui subfolder and run:
