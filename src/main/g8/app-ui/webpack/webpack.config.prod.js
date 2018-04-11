@@ -22,6 +22,9 @@ exports.plugins = [
     new webpack.DefinePlugin({
         'process.env': {
           'REDIRECTURI': JSON.stringify('https://play-silhouette-angular-ts.herokuapp.com/oauth2'),
+          'GOOGLE_CLIENT_ID': JSON.stringify('445581959814-m8aujn6hs4adfo5ceouot7dl0p7i741c.apps.googleusercontent.com'),
+          'FACEBOOK_CLIENT_ID': JSON.stringify('157726608232328'),
+          'TWITTER_CONSUMER_KEY': JSON.stringify('dFVnpeosDY4zZ0PccZYp5To50'),
         }
       })
 ];
