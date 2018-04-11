@@ -10,7 +10,7 @@
                     <a class="nav-link" href="https://github.com/epot/play-silhouette-angular-typescript.g8" target="_blank">GitHub</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto" *ngIf="isAuthenticated()">
+            <ul class="navbar-nav ml-auto" *ngIf="isAuthenticated();else other_navbar">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <ng-container *ngIf="user.firstName;else other_content">
@@ -24,6 +24,13 @@
                     </div>
                 </li>
             </ul>
+            <ng-template #other_navbar>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/signIn']" i18n>Sign in</a>
+                    </li>
+                </ul>
+            </ng-template>
         </div>
     </div>
 </nav>
