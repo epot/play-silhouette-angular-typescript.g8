@@ -21,7 +21,7 @@ your needs. It was migrated from the existing seed with AngularJS: [play-silhoue
 * Sign In (Credentials)
 * Password forgotten (Credentials)
 * JWT authentication
-* Social Auth (Facebook, Google+, VK, Twitter, Xing)
+* Social Auth (Facebook, Google+, Twitter)
 * Dependency Injection with Guice
 * Publishing Events
 * Avatar service
@@ -38,7 +38,10 @@ In order to play with this sample locally you need to:
    ```
  * configure the social providers by putting client id and secrets in your environment (see silhouette.conf to know 
  the exact syntax). For instance it is GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET for Google.
- * run "sbt start" from this sample rootfolder
+ * run "sbt start" from this sample root folder
+ 
+If you want to deploy this to Heroku, then you need to update `app-ui/webpack/webpack.config.prod.js` with correct variables.
+I did not find a way to avoid this duplication unfortunately.
  
 ## Documentation
 
