@@ -36,12 +36,14 @@ In order to play with this sample locally you need to:
    ```
    npm install
    ```
- * configure the social providers by putting client id and secrets in your environment (see silhouette.conf to know 
+ * configure the social providers:
+   * by putting client id and secrets in your environment (see silhouette.conf to know 
  the exact syntax). For instance it is GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET for Google.
+   * and by setting the correct values in your webpack configuration (`app-ui/webpack/webpack.config.dev.js` for local 
+   dev, and `app-ui/webpack/webpack.config.prod.js` for production). I did not find a way to avoid this duplication 
+   unfortunately.
  * run "sbt start" from this sample root folder
  
-If you want to deploy this to Heroku, then you need to update `app-ui/webpack/webpack.config.prod.js` with correct variables.
-I did not find a way to avoid this duplication unfortunately.
  
 ## Documentation
 
