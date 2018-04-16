@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [Validators.required]),
             rememberMe: new FormControl(true),
-        })
+        });
     }
 
     login(loginData: LoginData) {
